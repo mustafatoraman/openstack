@@ -240,3 +240,44 @@ glance image-create --name "cirros" --file cirros-0.3.4-x86_64-disk.img --disk-f
 
 #Confirm upload of the image and validate attributes
 glance image-list
+
+
+
+
+echo "Install and configure controller node"
+sleep 1
+
+#Create nova database and user
+mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE nova"
+mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'nova'@'localhost' IDENTIFIED BY '$NOVA_DBPASS'"
+mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'nova'@'%' IDENTIFIED BY '$NOVA_DBPASS'"
+
+#Source the admin credentials to gain access to admin-only CLI commands
+. $rootpath/admin-openrc.sh
+
+#Create the nova user
+openstack user create --domain default --password $NOVA_PASS nova
+#Add the admin role to the nova user
+openstack role add --project service --user nova admin
+#Create the nova service entity
+openstack service create --name nova --description "OpenStack Compute" compute
+#Create the Compute service API endpoints
+openstack endpoint create --region RegionOne compute public http://controller:8774/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne compute internal http://controller:8774/v2/%\(tenant_id\)s
+openstack endpoint create --region RegionOne compute admin http://controller:8774/v2/%\(tenant_id\)s
+
+#Install and configure components
+apt-get -y install nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient
+
+#Download sample nova.conf config file
+wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/controller/nova.conf -O /etc/nova/nova.conf
+
+#Update passwords
+sed -i "s/NOVA_DBPASS/$NOVA_DBPASS/g" /etc/nova/nova.conf
+sed -i "s/RABBIT_PASS/$RABBIT_PASS/g" /etc/nova/nova.conf
+sed -i "s/NOVA_PASS/$NOVA_PASS/g" /etc/nova/nova.conf
+sed -i "s/NEUTRON_PASS/$NEUTRON_PASS/g" /etc/nova/nova.conf
+sed -i "s/ADMIN_TOKEN/$ADMIN_TOKEN/g" /etc/nova/nova.conf
+
+#Populate the Compute database
+su -s /bin/sh -c "nova-manage db sync" nova
