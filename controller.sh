@@ -249,8 +249,8 @@ sleep 1
 
 #Create nova database and user
 mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE nova"
-mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'nova'@'localhost' IDENTIFIED BY '$NOVA_DBPASS'"
-mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON glance.* TO 'nova'@'%' IDENTIFIED BY '$NOVA_DBPASS'"
+mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY '$NOVA_DBPASS'"
+mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY '$NOVA_DBPASS'"
 
 #Source the admin credentials to gain access to admin-only CLI commands
 . $rootpath/admin-openrc.sh
@@ -281,3 +281,15 @@ sed -i "s/ADMIN_TOKEN/$ADMIN_TOKEN/g" /etc/nova/nova.conf
 
 #Populate the Compute database
 su -s /bin/sh -c "nova-manage db sync" nova
+
+
+#Restart the Compute services
+service nova-api restart
+service nova-cert restart
+service nova-consoleauth restart
+service nova-scheduler restart
+service nova-conductor restart
+service nova-novncproxy restart
+
+#Remove the SQLite database file
+rm -f /var/lib/nova/nova.sqlite
