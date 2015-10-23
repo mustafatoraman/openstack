@@ -1,5 +1,5 @@
-27.0.0.1       localhost
-127.0.1.1       compute1
+127.0.0.1       localhost
+10.0.0.20       compute1.localhost  compute1
 
 # The following lines are desirable for IPv6 capable hosts
 ::1     localhost ip6-localhost ip6-loopback
