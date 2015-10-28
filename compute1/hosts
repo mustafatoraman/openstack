@@ -9,6 +9,7 @@ ff02::2 ip6-allrouters
 
 10.0.0.10       controller
 10.0.0.20       compute1
+10.0.0.21       compute2
 10.0.0.30       block1
 10.0.0.40       object1
 10.0.0.41       object2
