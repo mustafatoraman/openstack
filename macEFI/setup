@@ -1,1 +1,3 @@
-sudo installer -pkg /path/to/package.pkg http://iweb.dl.sourceforge.net/project/gptfdisk/gptfdisk/1.0.1/gdisk-binaries/gdisk-1.0.1.pkg -target / 
+curl "http://iweb.dl.sourceforge.net/project/gptfdisk/gptfdisk/1.0.1/gdisk-binaries/gdisk-1.0.1.pkg" -o "gdisk-1.0.1.pkg"
+
+sudo installer -pkg gdisk-1.0.1.pkg  -target / 
