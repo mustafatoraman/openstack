@@ -12,7 +12,7 @@ rm -rf pw.sh
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -27,7 +27,7 @@ curl -o /root/pw_update.sh https://raw.githubusercontent.com/mustafatoraman/open
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -52,7 +52,7 @@ service chrony restart
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -81,14 +81,14 @@ reboot
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -110,7 +110,7 @@ rm -rf dbsec.sh
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -126,7 +126,7 @@ service mongodb restart
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -142,7 +142,7 @@ rabbitmqctl set_permissions openstack ".*" ".*" ".*"
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -163,7 +163,7 @@ su -s /bin/sh -c "keystone-manage db_sync" keystone
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -181,7 +181,7 @@ rm -f /var/lib/keystone/keystone.db
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -203,7 +203,7 @@ openstack endpoint create --region RegionOne identity admin http://controller:35
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -229,7 +229,7 @@ openstack --os-auth-url http://controller:5000/v3 --os-project-domain-id default
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -249,7 +249,7 @@ openstack token issue
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -286,7 +286,7 @@ glance image-list
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -321,7 +321,7 @@ rm -f /var/lib/nova/nova.sqlite
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -378,7 +378,7 @@ rm -f /var/lib/neutron/neutron.sqlite
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -395,7 +395,7 @@ service apache2 reload
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -430,7 +430,7 @@ rm -f /var/lib/cinder/cinder.sqlite
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -486,7 +486,7 @@ service swift-proxy restart
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
 
@@ -531,6 +531,6 @@ rm -f /var/lib/heat/heat.sqlite
         ;;
     *)
         echo "Moving next step..."
-        sleep 3
+        sleep 1
         ;;
 esac
