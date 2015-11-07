@@ -441,6 +441,7 @@ read -r -p "18) Download and configure Swift? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
+rootpath=/root
 . $rootpath/admin-openrc.sh
 openstack user create --domain default --password $SWIFT_PASS swift
 openstack role add --project service --user swift admin
@@ -501,7 +502,7 @@ case $response in
 mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE heat"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'localhost' IDENTIFIED BY '$HEAT_DBPASS'"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'%' IDENTIFIED BY '$HEAT_DBPASS'"
-
+rootpath=/root
 . $rootpath/admin-openrc.sh
 openstack user create --domain default --password $HEAT_PASS heat
 openstack role add --project service --user heat admin
