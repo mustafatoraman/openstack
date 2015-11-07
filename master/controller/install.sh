@@ -215,7 +215,6 @@ openstack endpoint create --region RegionOne volume admin http://controller:8776
 openstack endpoint create --region RegionOne volumev2 public http://controller:8776/v2/%\(tenant_id\)s
 openstack endpoint create --region RegionOne volumev2 internal http://controller:8776/v2/%\(tenant_id\)s
 openstack endpoint create --region RegionOne volumev2 admin http://controller:8776/v2/%\(tenant_id\)s
-
 apt-get -y install cinder-api cinder-scheduler python-cinderclient
 curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/cinder.conf
 sh pw_update.sh /etc/cinder/cinder.conf
@@ -224,3 +223,16 @@ service nova-api restart
 service cinder-scheduler restart
 service cinder-api restart
 rm -f /var/lib/cinder/cinder.sqlite
+
+#Add the Object Storage service
+. $rootpath/admin-openrc.sh
+openstack user create --domain default --password $SWIFT_PASS swift
+openstack role add --project service --user swift admin
+openstack service create --name swift --description "OpenStack Object Storage" object-store
+openstack endpoint create --region RegionOne object-store public http://controller:8080/v1/AUTH_%\(tenant_id\)s
+openstack endpoint create --region RegionOne object-store internal http://controller:8080/v1/AUTH_%\(tenant_id\)s
+openstack endpoint create --region RegionOne object-store admin http://controller:8080/v1
+apt-get -y install swift swift-proxy python-swiftclient python-keystoneclient python-keystonemiddleware memcached
+mkdir /etc/swift
+curl -o /etc/swift/proxy-server.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/proxy-server.conf
+sh pw_update.sh /etc/swift/proxy-server.conf
