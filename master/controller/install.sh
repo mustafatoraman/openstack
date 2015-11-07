@@ -173,6 +173,7 @@ curl -o /etc/neutron/l3_agent.ini https://raw.githubusercontent.com/mustafatoram
 curl -o /etc/neutron/dhcp_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dhcp_agent.ini
 curl -o /etc/neutron/dnsmasq-neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dnsmasq-neutron.conf
 curl -o /etc/neutron/neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/neutron.conf
+curl -o /etc/neutron/metadata_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/metadata_agent.ini
 
 sh pw_update.sh /etc/neutron/neutron.conf
 sh pw_update.sh /etc/neutron/plugins/ml2/ml2_conf.ini
@@ -180,4 +181,17 @@ sh pw_update.sh /etc/neutron/plugins/ml2/linuxbridge_agent.ini
 sh pw_update.sh /etc/neutron/l3_agent.ini
 sh pw_update.sh /etc/neutron/dhcp_agent.ini
 sh pw_update.sh /etc/neutron/dnsmasq-neutron.conf
+sh pw_update.sh /etc/neutron/metadata_agent.ini
+
+su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf \
+  --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron
+  
+service nova-api restart
+service neutron-server restart
+service neutron-plugin-linuxbridge-agent restart
+service neutron-dhcp-agent restart
+service neutron-metadata-agent restart
+service neutron-l3-agent restart
+
+rm -f /var/lib/neutron/neutron.sqlite
 
