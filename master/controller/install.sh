@@ -3,7 +3,11 @@ cd
 
 #Download and run password generator
 curl -o /root/pw.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw.sh
+sh pw.sh
 rm -rf pw.sh
+
+#Download pw updater
+curl -o /root/pw_update.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw_update.sh
 
 #Load passwords
 rootpath=/root
@@ -49,8 +53,7 @@ mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone
 echo "manual" > /etc/init/keystone.override
 apt-get -y install keystone apache2 libapache2-mod-wsgi memcached python-memcache
 curl -o /etc/keystone/keystone.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/keystone.conf
-sed -i -e "s/ADMIN_TOKEN/$ADMIN_TOKEN/g" /etc/keystone/keystone.conf
-sed -i -e "s/KEYSTONE_DBPASS/$KEYSTONE_DBPASS/g" /etc/keystone/keystone.conf
+sh pw_update.sh /etc/keystone/keystone.conf
 su -s /bin/sh -c "keystone-manage db_sync" keystone
 
 #Configure the Apache HTTP server
@@ -90,8 +93,8 @@ openstack --os-auth-url http://controller:5000/v3 --os-project-domain-id default
 #Create OpenStack client environment scripts
 curl -o /root/admin-openrc.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/admin-openrc.sh
 curl -o /root/demo-openrc.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/demo-openrc.sh
-sed -i "s/ADMIN_PASS/$ADMIN_PASS/g" /root/admin-openrc.sh
-sed -i "s/DEMO_PASS/$DEMO_PASS/g" /root/demo-openrc.sh
+sh pw_update.sh /root/admin-openrc.sh
+sh pw_update.sh /root/demo-openrc.sh
 . $rootpath/admin-openrc.sh
 openstack token issue
 
@@ -108,14 +111,12 @@ openstack endpoint create --region RegionOne image public http://controller:9292
 openstack endpoint create --region RegionOne image internal http://controller:9292
 openstack endpoint create --region RegionOne image admin http://controller:9292
 apt-get -y install glance python-glanceclient
+
 curl -o /etc/glance/glance-api.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/glance-api.conf
 curl -o /etc/glance/glance-registry.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/glance-registry.conf
-sed -i "s/GLANCE_PASS/$GLANCE_PASS/g" /etc/glance/glance-api.conf
-sed -i "s/GLANCE_PASS/$GLANCE_PASS/g" /etc/glance/glance-registry.conf
-sed -i "s/GLANCE_DBPASS/$GLANCE_DBPASS/g" /etc/glance/glance-api.conf
-sed -i "s/GLANCE_DBPASS/$GLANCE_DBPASS/g" /etc/glance/glance-registry.conf
-sed -i "s/RABBIT_PASS/$RABBIT_PASS/g" /etc/glance/glance-api.conf
-sed -i "s/RABBIT_PASS/$RABBIT_PASS/g" /etc/glance/glance-registry.conf
+sh pw_update.sh /etc/glance/glance-api.conf
+sh pw_update.sh /etc/glance/glance-registry.conf
+
 su -s /bin/sh -c "glance-manage db_sync" glance
 service glance-registry restart
 service glance-api restart
@@ -138,10 +139,7 @@ openstack endpoint create --region RegionOne compute internal http://controller:
 openstack endpoint create --region RegionOne compute admin http://controller:8774/v2/%\(tenant_id\)s
 apt-get -y install nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient
 curl -o /etc/nova/nova.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/nova.conf
-sed -i "s/NOVA_DBPASS/$NOVA_DBPASS/g" /etc/nova/nova.conf
-sed -i "s/RABBIT_PASS/$RABBIT_PASS/g" /etc/nova/nova.conf
-sed -i "s/NEUTRON_PASS/$NEUTRON_PASS/g" /etc/nova/nova.conf
-sed -i "s/METADATA_PROXY_SHARED_SECRET/$METADATA_PROXY_SHARED_SECRET/g" /etc/nova/nova.conf
+sh pw_update.sh /etc/nova/nova.conf
 su -s /bin/sh -c "nova-manage db sync" nova
 service nova-api restart
 service nova-cert restart
@@ -175,4 +173,11 @@ curl -o /etc/neutron/l3_agent.ini https://raw.githubusercontent.com/mustafatoram
 curl -o /etc/neutron/dhcp_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dhcp_agent.ini
 curl -o /etc/neutron/dnsmasq-neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dnsmasq-neutron.conf
 curl -o /etc/neutron/neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/neutron.conf
+
+sh pw_update.sh /etc/neutron/neutron.conf
+sh pw_update.sh /etc/neutron/plugins/ml2/ml2_conf.ini
+sh pw_update.sh /etc/neutron/plugins/ml2/linuxbridge_agent.ini
+sh pw_update.sh /etc/neutron/l3_agent.ini
+sh pw_update.sh /etc/neutron/dhcp_agent.ini
+sh pw_update.sh /etc/neutron/dnsmasq-neutron.conf
 
