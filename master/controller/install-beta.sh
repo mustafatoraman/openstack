@@ -2,7 +2,7 @@
 cd
 
 clear
-read -r -p "Download and run password generator? [y/N] " response
+read -r -p "1) Download and run password generator? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -19,7 +19,7 @@ esac
 
 
 clear
-read -r -p "Download password updater? [y/N] " response
+read -r -p "2) Download password updater? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -42,7 +42,7 @@ rootpath=/root
 
 
 clear
-read -r -p "Download and configure NTP Service? [y/N] " response
+read -r -p "3) Download and configure NTP Service? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -63,7 +63,7 @@ esac
 
 
 clear
-read -r -p "Download and update OpenStack Packages? [y/N] " response
+read -r -p "4) Download and update OpenStack Packages? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -79,7 +79,7 @@ apt-get -y install python-openstackclient
 esac
 
 clear
-read -r -p "Download and install MySQL Server? [y/N] " response
+read -r -p "5) Download and install MySQL Server? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -102,7 +102,7 @@ esac
 
 
 clear
-read -r -p "Download and install NoSQL Server? [y/N] " response
+read -r -p "6) Download and install NoSQL Server? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -118,7 +118,7 @@ esac
 
 
 clear
-read -r -p "Download and install RabbitMQ? [y/N] " response
+read -r -p "7) Download and install RabbitMQ? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -134,7 +134,7 @@ esac
 
 
 clear
-read -r -p "Download and install Keystone (Identity service)? [y/N] " response
+read -r -p "8) Download and install Keystone (Identity service)? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -155,7 +155,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Apache2 ? [y/N] " response
+read -r -p "9) Download and configure Apache2 ? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -173,7 +173,7 @@ esac
 
 
 clear
-read -r -p "Create the service entity and API endpoints? [y/N] " response
+read -r -p "10) Create the service entity and API endpoints? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -193,7 +193,7 @@ esac
 
 
 clear
-read -r -p "Create projects, users, and roles? [y/N] " response
+read -r -p "11) Create projects, users, and roles? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -220,7 +220,7 @@ esac
 
 
 clear
-read -r -p "Create OpenStack client environment scripts? [y/N] " response
+read -r -p "12) Create OpenStack client environment scripts? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -239,7 +239,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Glance? [y/N] " response
+read -r -p "13) Download and configure Glance? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -277,7 +277,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Nova? [y/N] " response
+read -r -p "14) Download and configure Nova? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -312,7 +312,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Neutron? [y/N] " response
+read -r -p "15) Download and configure Neutron? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -369,7 +369,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Horizon? [y/N] " response
+read -r -p "16) Download and configure Horizon? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -385,7 +385,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Cinder? [y/N] " response
+read -r -p "17) Download and configure Cinder? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -421,7 +421,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Swift? [y/N] " response
+read -r -p "18) Download and configure Swift? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -478,7 +478,7 @@ esac
 
 
 clear
-read -r -p "Download and configure Heat? [y/N] " response
+read -r -p "19) Download and configure Heat? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
