@@ -27,6 +27,8 @@ echo "NOVA_DBPASS=$(openssl rand -hex 6)" >> passwords.sh
 echo "NOVA_PASS=$(openssl rand -hex 6)" >> passwords.sh
 echo "RABBIT_PASS=$(openssl rand -hex 6)" >> passwords.sh
 echo "SWIFT_PASS=$(openssl rand -hex 6)" >> passwords.sh
+echo "METADATA_PROXY_SHARED_SECRET=$(openssl rand -hex 10)" >> passwords.sh
+
 
 . $rootpath/passwords.sh
 
@@ -52,6 +54,7 @@ printf "NOVA_DBPASS\t\t\t$NOVA_DBPASS\n"
 printf "NOVA_PASS\t\t\t$NOVA_PASS\n"
 printf "RABBIT_PASS\t\t\t$RABBIT_PASS\n"
 printf "SWIFT_PASS\t\t\t$SWIFT_PASS\n"
+printf "METADATA_PROXY_SHARED_SECRET\t\t\t$METADATA_PROXY_SHARED_SECRET\n"
 echo "------------------------------------------------------"
 
 echo "Passwords saved at /root/passwords.sh for reference"
