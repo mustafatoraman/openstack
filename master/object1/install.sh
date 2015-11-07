@@ -42,3 +42,13 @@ curl -o /etc/swift/account-server.conf https://raw.githubusercontent.com/mustafa
 chown -R swift:swift /srv/node
 mkdir -p /var/cache/swift
 chown -R root:swift /var/cache/swift
+
+scp root@controller:/etc/swift/account.ring.gz /etc/swift/account.ring.gz
+scp root@controller:/etc/swift/container.ring.gz /etc/swift/container.ring.gz
+scp root@controller:/etc/swift/object.ring.gz /etc/swift/object.ring.gz
+
+curl -o /etc/swift/swift.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/object1/swift.conf
+
+chown -R root:swift /etc/swift
+chown -R swift:swift /srv/node/
+swift-init all start
