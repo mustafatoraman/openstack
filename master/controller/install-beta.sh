@@ -191,6 +191,8 @@ read -r -p "10) Create the service entity and API endpoints? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
+rootpath=/root
+. $rootpath/passwords.sh
 export OS_TOKEN=$ADMIN_TOKEN
 export OS_URL=http://controller:35357/v3
 export OS_IDENTITY_API_VERSION=3
