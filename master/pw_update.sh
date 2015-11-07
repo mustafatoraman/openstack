@@ -3,7 +3,7 @@
 rootpath=/root
 . $rootpath/passwords.sh
 
-sed -i -e "s/ADMIN_TOKEN/$DMIN_TOKEN/g"  $1
+sed -i -e "s/ADMIN_TOKEN/$ADMIN_TOKEN/g"  $1
 sed -i -e "s/ROOT_DB_PASS/$ROOT_DB_PASS/g"  $1
 sed -i -e "s/ADMIN_PASS/$ADMIN_PASS/g"  $1
 sed -i -e "s/CEILOMETER_DBPASS/$CEILOMETER_DBPASS/g"  $1
