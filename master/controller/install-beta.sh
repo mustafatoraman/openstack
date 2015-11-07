@@ -71,6 +71,20 @@ apt-get -y install software-properties-common
 add-apt-repository -y cloud-archive:liberty
 apt-get -y update && apt-get -y dist-upgrade
 apt-get -y install python-openstackclient
+sleep 3
+clear
+read -r -p " New kernel installed!!! Please reboot before moving to step 5? (Required) [y/N] " response
+case $response in
+    [yY][eE][sS]|[yY]) 
+        echo "Rebooting..."
+reboot
+        ;;
+    *)
+        echo "Moving next step..."
+        sleep 3
+        ;;
+esac
+
         ;;
     *)
         echo "Moving next step..."
