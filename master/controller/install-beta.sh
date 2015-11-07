@@ -46,7 +46,7 @@ read -r -p "3) Download and configure NTP Service? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
-apt-get install chrony
+apt-get -y install chrony
 curl -o /etc/chrony/chrony.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/chrony.conf
 service chrony restart
         ;;
