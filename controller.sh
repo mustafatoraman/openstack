@@ -1,65 +1,47 @@
 #!/bin/bash
-
 cd
+
+
 #Download and run password generator
-wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/pw_gen.sh -O /root/pw_gen.sh
-sh pw_gen.sh
+curl -o /root/pw.sh \
+https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw.sh
+rm -rf pw.sh
+
 
 #Load passwords
 rootpath=/root
 . $rootpath/passwords.sh
 
-echo "Starting setup for controller"
-sleep 1
-echo "Configuring public interface (eth1)"
-sleep 1
-wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/controller/interfaces -O /etc/network/interfaces
-echo "Configuring hosts file"
-sleep 1
-wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/controller/hosts -O /etc/hosts
 
-
-echo "Configuring Network Time Protocol"
-sleep 1
-apt-get -y install chrony
-wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/controller/chrony.conf -O /etc/chrony/chrony.conf
-echo "Reloading Chrony"
-sleep 1
+#download ntp
+apt-get install chrony
+curl -o /etc/chrony/chrony.conf \
+https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/chrony.conf
 service chrony restart
 
-echo "Enabling the OpenStack repository"
-sleep 1
+
+#Install OpenStack packages
 apt-get -y install software-properties-common
 add-apt-repository -y cloud-archive:liberty
-echo "Installing the OpenStack client"
-sleep 1
-apt-get -y install python-openstackclient
-echo "Finalizing the installation"
-sleep 1
 apt-get -y update && apt-get -y dist-upgrade
+apt-get -y install python-openstackclient
 
 
-echo "Installing and configuring the database server"
-sleep 1
-
-rootpath=/root
-. $rootpath/passwords.sh
+#Install SQL database
 echo mariadb-server-5.5 mysql-server/root_password password $ROOT_DB_PASS | debconf-set-selections
 echo mariadb-server-5.5 mysql-server/root_password_again password $ROOT_DB_PASS | debconf-set-selections
 apt-get -y install mariadb-server python-pymysql
-
-#save new config to bind 10.0.0.10 
-wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/controller/mysqld_openstack.cnf -O /etc/mysql/conf.d/mysqld_openstack.cnf
+curl -o /etc/mysql/conf.d/mysqld_openstack.cnf \
+https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/mysqld_openstack.cnf
 service mysql restart
-
-#secure db
 apt-get -y install expect
-wget -q https://raw.githubusercontent.com/mustafatoraman/openstack/master/db_sec.sh -O /root/db_sec.sh
-sh db_sec.sh
+curl -o /root/dbsec.sh \
+https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dbsec.sh
+sh dbsec.sh
+rm -rf dbsec.sh
 
 
-echo "Installing and configuring message queue service"
-sleep 1
+#Install Message Queue
 apt-get -y install rabbitmq-server
 rabbitmqctl add_user openstack $RABBIT_PASS
 rabbitmqctl set_permissions openstack ".*" ".*" ".*"
