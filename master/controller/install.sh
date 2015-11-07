@@ -195,3 +195,7 @@ service neutron-l3-agent restart
 
 rm -f /var/lib/neutron/neutron.sqlite
 
+#Add the dashboard
+apt-get -y install openstack-dashboard
+curl -o /etc/openstack-dashboard/local_settings.py https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/local_settings.py
+service apache2 reload
