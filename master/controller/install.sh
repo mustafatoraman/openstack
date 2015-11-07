@@ -236,3 +236,34 @@ apt-get -y install swift swift-proxy python-swiftclient python-keystoneclient py
 mkdir /etc/swift
 curl -o /etc/swift/proxy-server.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/proxy-server.conf
 sh pw_update.sh /etc/swift/proxy-server.conf
+cd /etc/swift/
+
+swift-ring-builder account.builder create 10 3 1
+swift-ring-builder account.builder add --region 1 --zone 1 --ip 10.0.0.40 --port 6002 --device sdb --weight 100
+swift-ring-builder account.builder add --region 1 --zone 2 --ip 10.0.0.40 --port 6002 --device sdc --weight 100
+swift-ring-builder account.builder add --region 1 --zone 3 --ip 10.0.0.41 --port 6002 --device sdb --weight 100
+swift-ring-builder account.builder add --region 1 --zone 4 --ip 10.0.0.41 --port 6002 --device sdc --weight 100
+swift-ring-builder account.builder
+swift-ring-builder account.builder rebalance
+
+swift-ring-builder container.builder create 10 3 1
+swift-ring-builder container.builder add --region 1 --zone 1 --ip 10.0.0.40 --port 6001 --device sdb --weight 100
+swift-ring-builder container.builder add --region 1 --zone 2 --ip 10.0.0.40 --port 6001 --device sdc --weight 100
+swift-ring-builder container.builder add --region 1 --zone 3 --ip 10.0.0.41 --port 6001 --device sdb --weight 100
+swift-ring-builder container.builder add --region 1 --zone 4 --ip 10.0.0.41 --port 6001 --device sdc --weight 100
+swift-ring-builder container.builder
+swift-ring-builder container.builder rebalance
+
+swift-ring-builder object.builder create 10 3 1
+swift-ring-builder object.builder add --region 1 --zone 1 --ip 10.0.0.40 --port 6001 --device sdb --weight 100
+swift-ring-builder object.builder add --region 1 --zone 2 --ip 10.0.0.40 --port 6001 --device sdc --weight 100
+swift-ring-builder object.builder add --region 1 --zone 3 --ip 10.0.0.41 --port 6001 --device sdb --weight 100
+swift-ring-builder object.builder add --region 1 --zone 4 --ip 10.0.0.41 --port 6001 --device sdc --weight 100
+swift-ring-builder object.builder
+swift-ring-builder object.builder rebalance
+
+curl -o /etc/swift/swift.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/swift.conf
+
+chown -R root:swift /etc/swift
+service memcached restart
+service swift-proxy restart
