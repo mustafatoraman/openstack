@@ -12,7 +12,6 @@ rm -rf pw.sh
         ;;
     *)
         echo "Moving next step..."
-        sleep 1
         ;;
 esac
 
