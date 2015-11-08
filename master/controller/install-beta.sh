@@ -504,7 +504,9 @@ mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'local
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'%' IDENTIFIED BY '$HEAT_DBPASS'"
 rootpath=/root
 . $rootpath/admin-openrc.sh
+sleep 10
 openstack user create --domain default --password $HEAT_PASS heat
+sleep 5
 openstack role add --project service --user heat admin
 openstack service create --name heat --description "Orchestration" orchestration
 openstack service create --name heat-cfn --description "Orchestration"  cloudformation
