@@ -464,8 +464,8 @@ swift-ring-builder object.builder rebalance
 curl -o /etc/swift/swift.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/swift.conf
 
 chown -R root:swift /etc/swift
-service memcached restart
-service swift-proxy restart
+/etc/init.d/memcached restart
+/etc/init.d/swift-proxy restart
         ;;
     *)
         echo "Moving next step..."
@@ -508,9 +508,9 @@ apt-get -y install heat-api heat-api-cfn heat-engine python-heatclient
 curl -o /etc/heat/heat.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/heat.conf
 sh pw_update.sh /etc/heat/heat.conf
 su -s /bin/sh -c "heat-manage db_sync" heat
-service heat-api restart
-service heat-api-cfn restart
-service heat-engine restart
+/etc/init.d/heat-api restart
+/etc/init.d/heat-api-cfn restart
+/etc/init.d/heat-engine restart
 rm -f /var/lib/heat/heat.sqlite
         ;;
     *)
