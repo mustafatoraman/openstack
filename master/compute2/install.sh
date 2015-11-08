@@ -22,9 +22,8 @@ apt-get -y install python-openstackclient
 #Install and configure a compute node
 apt-get -y install nova-compute sysfsutils
 curl -o /etc/nova/nova.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/nova.conf
-sed -i "s/RABBIT_PASS/$RABBIT_PASS/g" /etc/nova/nova.conf
-sed -i "s/NOVA_PASS/$NOVA_PASS/g" /etc/nova/nova.conf
-sed -i "s/NEUTRON_PASS/$NEUTRON_PASS/g" /etc/nova/nova.conf
+sh pw_update.sh /etc/nova/nova.conf
+
 curl -o /etc/nova/nova-compute.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/nova-compute.conf
 service nova-compute restart
 rm -f /var/lib/nova/nova.sqlite
