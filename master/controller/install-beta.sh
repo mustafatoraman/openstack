@@ -406,9 +406,9 @@ apt-get -y install cinder-api cinder-scheduler python-cinderclient
 curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/cinder.conf
 sh pw_update.sh /etc/cinder/cinder.conf
 su -s /bin/sh -c "cinder-manage db sync" cinder
-service nova-api restart
-service cinder-scheduler restart
-service cinder-api restart
+/etc/init.d/nova-api restart
+/etc/init.d/cinder-scheduler restart
+/etc/init.d/cinder-api restart
 rm -f /var/lib/cinder/cinder.sqlite
         ;;
     *)
