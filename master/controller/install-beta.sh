@@ -15,7 +15,7 @@ rm -rf pw.sh
         ;;
 esac
 
-
+ 
 
 clear
 read -r -p "2) Download password updater? [y/N] " response
