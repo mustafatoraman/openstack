@@ -9,7 +9,7 @@ rootpath=/root
 curl -o /root/pw_update.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw_update.sh
 
 #Configure NTP
-apt-get install chrony
+apt-get -y install chrony
 curl -o /etc/chrony/chrony.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute1/chrony.conf
 service chrony restart
 
