@@ -20,7 +20,7 @@ apt-get -y update && apt-get -y dist-upgrade
 apt-get -y install python-openstackclient
 
 #Install and configure a storage node
-apt-get -yinstall lvm2
+apt-get -y install lvm2
 pvcreate /dev/sdb
 vgcreate cinder-volumes /dev/sdb
 curl -o /etc/lvm/lvm.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/lvm.conf
