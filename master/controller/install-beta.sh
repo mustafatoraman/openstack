@@ -484,6 +484,7 @@ mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE heat"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'localhost' IDENTIFIED BY '$HEAT_DBPASS'"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'%' IDENTIFIED BY '$HEAT_DBPASS'"
 rootpath=/root
+. $rootpath/passwords.sh
 . $rootpath/admin-openrc.sh
 sleep 10
 openstack user create --domain default --password $HEAT_PASS heat
