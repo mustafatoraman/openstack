@@ -22,8 +22,8 @@ apt-get -y install python-openstackclient
 
 #Install and configure a storage node
 apt-get -y install lvm2
-pvcreate /dev/sdb
-vgcreate cinder-volumes /dev/sdb
+pvcreate /dev/vdb
+vgcreate cinder-volumes /dev/vdb
 curl -o /etc/lvm/lvm.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/lvm.conf
 apt-get -y install cinder-volume python-mysqldb
 curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/cinder.conf
@@ -31,6 +31,5 @@ sh pw_update.sh /etc/cinder/cinder.conf
 service tgt restart
 service cinder-volume restart
 rm -f /var/lib/cinder/cinder.sqlite
-
 #apt-get install python-pip
 #pip install ceilometermiddleware
