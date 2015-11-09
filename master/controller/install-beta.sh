@@ -360,6 +360,23 @@ service neutron-l3-agent restart
 
 rm -f /var/lib/neutron/neutron.sqlite
 
+sleep 5
+
+rootpath=/root
+
+. $rootpath/admin-openrc.sh
+neutron net-create public --shared --provider:physical_network public --provider:network_type flat
+neutron subnet-create public 9.100.16.0/24 --name public --allocation-pool start=9.100.16.10,end=9.100.16.254 --dns-nameserver 8.8.4.4 --gateway 9.100.16.1
+. $rootpath/demo-openrc.sh
+neutron net-create private
+neutron subnet-create private 172.16.1.0/24 --name private --dns-nameserver 8.8.4.4 --gateway 172.16.1.1
+. $rootpath/admin-openrc.sh
+neutron net-update public --router:external
+. $rootpath/demo-openrc.sh
+neutron router-create router
+neutron router-interface-add router private
+neutron router-gateway-set router public
+
         ;;
     *)
         echo "Moving next step..."
@@ -375,6 +392,7 @@ case $response in
         echo "Starting..."
 apt-get -y install openstack-dashboard
 curl -o /etc/openstack-dashboard/local_settings.py https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/local_settings.py
+apt-get remove --auto-remove openstack-dashboard-ubuntu-theme
 service apache2 reload
         ;;
     *)
