@@ -1,5 +1,10 @@
 #!/bin/bash
 cd
+
+curl -o /etc/network/interfaces https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/interfaces
+curl -o /etc/hostname https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/hostname
+curl -o /etc/hosts https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/hosts
+
 #Download Password file from controller node
 scp root@controller:/root/passwords.sh /root/passwords.sh
 rootpath=/root
@@ -23,7 +28,6 @@ apt-get -y install python-openstackclient
 apt-get -y install nova-compute sysfsutils
 curl -o /etc/nova/nova.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/nova.conf
 sh pw_update.sh /etc/nova/nova.conf
-
 curl -o /etc/nova/nova-compute.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/nova-compute.conf
 service nova-compute restart
 rm -f /var/lib/nova/nova.sqlite
