@@ -1,10 +1,6 @@
 #!/bin/bash
 cd
 
-curl -o /etc/network/interfaces https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/interfaces
-curl -o /etc/hostname https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/hostname
-curl -o /etc/hosts https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/hosts
-
 #Download Password file from controller node
 scp root@controller:/root/passwords.sh /root/passwords.sh
 rootpath=/root
