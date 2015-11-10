@@ -31,5 +31,8 @@ sh pw_update.sh /etc/cinder/cinder.conf
 service tgt restart
 service cinder-volume restart
 rm -f /var/lib/cinder/cinder.sqlite
+
+shutdown -h now
+
 #apt-get install python-pip
 #pip install ceilometermiddleware
