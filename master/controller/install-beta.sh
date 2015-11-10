@@ -392,7 +392,7 @@ case $response in
         echo "Starting..."
 apt-get -y install openstack-dashboard
 curl -o /etc/openstack-dashboard/local_settings.py https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/local_settings.py
-apt-get remove --auto-remove openstack-dashboard-ubuntu-theme
+apt-get -y remove --auto-remove openstack-dashboard-ubuntu-theme
 service apache2 reload
         ;;
     *)
