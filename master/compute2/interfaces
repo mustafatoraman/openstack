@@ -17,5 +17,11 @@ iface eth0 inet static
 # The public network interface
 auto eth1
 iface eth1 inet manual
-up ip link set dev $IFACE up
-down ip link set dev $IFACE down
+	up ip link set dev $IFACE up
+	down ip link set dev $IFACE down
+
+# Host only network
+auto eth2
+iface eth2 inet static
+	address 192.168.100.21
+	netmask 255.255.255.0
