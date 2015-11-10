@@ -13,3 +13,9 @@ iface eth0 inet static
         # dns-* options are implemented by the resolvconf package, if installed
         dns-nameservers 8.8.8.8
         dns-search localhost
+
+# Host only network
+auto eth1
+iface eth1 inet static
+	address 192.168.100.30
+	netmask 255.255.255.0
