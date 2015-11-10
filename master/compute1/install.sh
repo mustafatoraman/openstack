@@ -40,3 +40,5 @@ sh pw_update.sh /etc/neutron/plugins/ml2/linuxbridge_agent.ini
 
 service nova-compute restart
 service neutron-plugin-linuxbridge-agent restart
+
+shutdown -h now
