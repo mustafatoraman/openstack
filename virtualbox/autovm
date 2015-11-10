@@ -1,0 +1,20 @@
+#initials
+VBoxManage natnetwork add --netname Management --network 10.0.0.0/24 --enable --dhcp off
+VBoxManage natnetwork start --netname Management
+VBoxManage natnetwork add --netname Public --network 9.100.16.0/24 --enable --dhcp off
+VBoxManage natnetwork start --netname Public
+VBoxManage hostonlyif create
+VBoxManage hostonlyif ipconfig vboxnet0 -ip 192.168.100.1 --netmask 255.255.255.0
+
+#controller
+VBoxManage createvm --name controller --ostype "Ubuntu_64" --register
+VBoxManage modifyvm controller --cpus 1 --memory 4096
+VBoxManage createhd --filename ~/VirtualBox\ VMs/controller/controller --size 10240
+VBoxManage storagectl controller --name IDE --controller PIIX4 --add ide --bootable on
+Vboxmanage storageattach controller --storagectl IDE --type dvddrive --port 1 --device 1 --medium  emptydrive
+VBoxManage storagectl controller --name SATA --controller IntelAhci --portcount 1 --add sata --bootable on --hostiocache on
+Vboxmanage storageattach controller --storagectl SATA --type hdd --port 1 --device 0 --medium  ~/VirtualBox\ VMs/controller/controller.vdi
+VBoxManage modifyvm controller --nic1 natnetwork --nat-network1 Management --nicpromisc1 allow-all --macaddress1 auto
+VBoxManage modifyvm controller --nic2 natnetwork --nat-network2 Public --nicpromisc2 allow-all --macaddress2 auto
+VBoxManage modifyvm controller --nic3 hostonly --nicpromisc3 allow-all --macaddress3 auto
+VBoxManage modifyvm controller --boot1 dvd --boot2 disk --boot3 net --boot4  none
