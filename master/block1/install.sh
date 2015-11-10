@@ -22,8 +22,8 @@ apt-get -y install python-openstackclient
 
 #Install and configure a storage node
 apt-get -y install lvm2
-pvcreate /dev/vdb
-vgcreate cinder-volumes /dev/vdb
+pvcreate /dev/sdb
+vgcreate cinder-volumes /dev/sdb
 curl -o /etc/lvm/lvm.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/lvm.conf
 apt-get -y install cinder-volume python-mysqldb
 curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/cinder.conf
