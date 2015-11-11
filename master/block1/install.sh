@@ -1,6 +1,14 @@
 #!/bin/bash
 cd
 
+file="/dev/sdb"
+if [ -e "$file" ]
+then
+blockdisk=/dev/sdb
+else
+blockdisk=/dev/vdb
+fi
+
 #Download Password file from controller node
 scp root@controller:/root/passwords.sh /root/passwords.sh
 rootpath=/root
@@ -22,9 +30,17 @@ apt-get -y install python-openstackclient
 
 #Install and configure a storage node
 apt-get -y install lvm2
-pvcreate /dev/sdb
-vgcreate cinder-volumes /dev/sdb
+pvcreate $blockdisk
+vgcreate cinder-volumes $blockdisk
 curl -o /etc/lvm/lvm.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/lvm.conf
+
+if [ -e "$file" ]
+then
+sleep 0
+else
+sed -i "s/sdb/vdb/g" /etc/lvm/lvm.conf
+fi
+
 apt-get -y install cinder-volume python-mysqldb
 curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/cinder.conf
 sh pw_update.sh /etc/cinder/cinder.conf
