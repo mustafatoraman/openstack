@@ -1,9 +1,7 @@
 #!/bin/bash
-clear
-read -r -p "15) Download and configure Neutron? [y/N] " response
-case $response in
-    [yY][eE][sS]|[yY]) 
-        echo "Starting..."
+
+
+
 mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE neutron"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS'"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '$NEUTRON_DBPASS'"
@@ -47,7 +45,7 @@ service neutron-l3-agent restart
 
 rm -f /var/lib/neutron/neutron.sqlite
 
-sleep 5
+
 
 rootpath=/root
 
