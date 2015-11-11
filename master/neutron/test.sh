@@ -5,6 +5,9 @@
 mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE neutron"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS'"
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '$NEUTRON_DBPASS'"
+
+
+
 . $rootpath/admin-openrc.sh
 openstack user create --domain default --password $NEUTRON_PASS neutron
 openstack role add --project service --user neutron admin
@@ -12,6 +15,10 @@ openstack service create --name neutron --description "OpenStack Networking" net
 openstack endpoint create --region RegionOne network public http://controller:9696
 openstack endpoint create --region RegionOne network internal http://controller:9696
 openstack endpoint create --region RegionOne network admin http://controller:9696
+
+
+
+
 apt-get -y install neutron-server neutron-plugin-ml2 \
     neutron-plugin-linuxbridge-agent neutron-l3-agent neutron-dhcp-agent \
     neutron-metadata-agent python-neutronclient
