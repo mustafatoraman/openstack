@@ -26,3 +26,5 @@ sed -i -e "s/RABBIT_PASS/$RABBIT_PASS/g"  $1
 sed -i -e "s/SWIFT_PASS/$SWIFT_PASS/g"  $1
 sed -i -e "s/METADATA_SECRET/$METADATA_SECRET/g"  $1
 echo "Variables updated." 
+
+sdfsdf
