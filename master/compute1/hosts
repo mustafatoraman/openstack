@@ -5,7 +5,12 @@
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 
-10.0.0.10       controller
+10.0.0.1        ntpserver
+10.0.0.1        mysqlserver
+10.0.0.1        rabbitserver
+10.0.0.1        apicontroller
+10.0.0.1        glanceserver
+10.0.0.10       neutron
 10.0.0.20       compute1
 10.0.0.21       compute2
 10.0.0.30       object1
