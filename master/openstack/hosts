@@ -1,0 +1,17 @@
+127.0.0.1       localhost
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+10.0.0.1        mysqlserver
+10.0.0.1        rabbitserver
+10.0.0.1        apicontroller
+10.0.0.1        glanceserver
+10.0.0.10       neutron
+10.0.0.20       compute1
+10.0.0.21       compute2
+10.0.0.30       object1
+10.0.0.40       block1
+10.0.0.41       block1
