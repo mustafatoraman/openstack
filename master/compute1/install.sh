@@ -1,17 +1,19 @@
 #!/bin/bash
 cd
 
+repo="https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/"
+
 #Download Password file from controller node
 scp root@controller:/root/passwords.sh /root/passwords.sh
 rootpath=/root
 . $rootpath/passwords.sh
 
 #Download pw updater
-curl -o /root/pw_update.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw_update.sh
+curl -o /root/pw_update.sh $repo/pw_update.sh
 
 #Configure NTP
 apt-get -y install chrony
-curl -o /etc/chrony/chrony.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute1/chrony.conf
+curl -o /etc/chrony/chrony.conf $repo/compute1/chrony.conf
 service chrony restart
 
 #Install OpenStack packages
@@ -22,18 +24,16 @@ apt-get -y install python-openstackclient
 
 #Install and configure a compute node
 apt-get -y install nova-compute sysfsutils
-curl -o /etc/nova/nova.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute1/nova.conf
-sed -i "s/RABBIT_PASS/$RABBIT_PASS/g" /etc/nova/nova.conf
-sed -i "s/NOVA_PASS/$NOVA_PASS/g" /etc/nova/nova.conf
-sed -i "s/NEUTRON_PASS/$NEUTRON_PASS/g" /etc/nova/nova.conf
-curl -o /etc/nova/nova-compute.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute1/nova-compute.conf
+curl -o /etc/nova/nova.conf $repo/compute1/nova.conf
+sh pw_update.sh /etc/nova/nova.conf
+curl -o /etc/nova/nova-compute.conf $repo/compute1/nova-compute.conf
 service nova-compute restart
 rm -f /var/lib/nova/nova.sqlite
 
 #Add the Networking service
 apt-get -y install neutron-plugin-linuxbridge-agent
-curl -o /etc/neutron/neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute1/neutron.conf
-curl -o /etc/neutron/plugins/ml2/linuxbridge_agent.ini  https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute1/linuxbridge_agent.ini
+curl -o /etc/neutron/neutron.conf $repo/compute1/neutron.conf
+curl -o /etc/neutron/plugins/ml2/linuxbridge_agent.ini  $repo/compute1/linuxbridge_agent.ini
 
 sh pw_update.sh /etc/neutron/neutron.conf
 sh pw_update.sh /etc/neutron/plugins/ml2/linuxbridge_agent.ini 
