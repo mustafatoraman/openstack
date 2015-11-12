@@ -111,23 +111,9 @@ rm -rf dbsec.sh
 esac
 
 
-clear
-read -r -p "6) Download and install NoSQL Server? [y/N] " response
-case $response in
-    [yY][eE][sS]|[yY]) 
-        echo "Starting..."
-apt-get -y install mongodb-server mongodb-clients python-pymongo
-curl -o /root/mongodb.conf $repo/controller/mongodb.conf
-service mongodb restart
-        ;;
-    *)
-        echo "Moving next step..."
-        ;;
-esac
-
 
 clear
-read -r -p "7) Download and install RabbitMQ? [y/N] " response
+read -r -p "6) Download and install RabbitMQ? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -142,7 +128,7 @@ esac
 
 
 clear
-read -r -p "8) Download and install Keystone (Identity service)? [y/N] " response
+read -r -p "7) Download and install Keystone (Identity service)? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -162,7 +148,7 @@ esac
 
 
 clear
-read -r -p "9) Download and configure Apache2 ? [y/N] " response
+read -r -p "8) Download and configure Apache2 ? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -179,7 +165,7 @@ esac
 
 
 clear
-read -r -p "10) Create the service entity and API endpoints? [y/N] " response
+read -r -p "9) Create the service entity and API endpoints? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -200,7 +186,7 @@ esac
 
 
 clear
-read -r -p "11) Create projects, users, and roles? [y/N] " response
+read -r -p "10) Create projects, users, and roles? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -226,7 +212,7 @@ esac
 
 
 clear
-read -r -p "12) Create OpenStack client environment scripts? [y/N] " response
+read -r -p "11) Create OpenStack client environment scripts? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -244,7 +230,7 @@ esac
 
 
 clear
-read -r -p "13) Download and configure Glance? [y/N] " response
+read -r -p "12) Download and configure Glance? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -281,7 +267,7 @@ esac
 
 
 clear
-read -r -p "14) Download and configure Nova? [y/N] " response
+read -r -p "13) Download and configure Nova? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -315,7 +301,7 @@ esac
 
 
 clear
-read -r -p "15) Download and configure Neutron? [y/N] " response
+read -r -p "14) Download and configure Neutron? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -388,7 +374,7 @@ esac
 
 
 clear
-read -r -p "16) Download and configure Horizon? [y/N] " response
+read -r -p "15) Download and configure Horizon? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -404,7 +390,7 @@ esac
 
 
 clear
-read -r -p "17) Download and configure Cinder? [y/N] " response
+read -r -p "16) Download and configure Cinder? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -439,7 +425,7 @@ esac
 
 
 clear
-read -r -p "18) Download and configure Swift? [y/N] " response
+read -r -p "17) Download and configure Swift? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -496,7 +482,7 @@ esac
 
 
 clear
-read -r -p "19) Download and configure Heat? [y/N] " response
+read -r -p "18) Download and configure Heat? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
@@ -533,6 +519,22 @@ su -s /bin/sh -c "heat-manage db_sync" heat
 /etc/init.d/heat-api-cfn restart
 /etc/init.d/heat-engine restart
 rm -f /var/lib/heat/heat.sqlite
+        ;;
+    *)
+        echo "Moving next step..."
+        ;;
+esac
+
+
+
+clear
+read -r -p "19) Download and install NoSQL Server? [y/N] " response
+case $response in
+    [yY][eE][sS]|[yY]) 
+        echo "Starting..."
+apt-get -y install mongodb-server mongodb-clients python-pymongo
+curl -o /root/mongodb.conf $repo/controller/mongodb.conf
+service mongodb restart
         ;;
     *)
         echo "Moving next step..."
