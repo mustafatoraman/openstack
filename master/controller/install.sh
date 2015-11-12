@@ -1,12 +1,14 @@
 #!/bin/bash
 cd
 
+repo="https://raw.githubusercontent.com/mustafatoraman/openstack/master/master"
+
 clear
 read -r -p "1) Download and run password generator? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
-curl -o /root/pw.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw.sh
+curl -o /root/pw.sh $repo/pw.sh
 sh pw.sh
 rm -rf pw.sh
         ;;
@@ -22,7 +24,7 @@ read -r -p "2) Download password updater? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
-curl -o /root/pw_update.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw_update.sh
+curl -o /root/pw_update.sh $repo/pw_update.sh
         ;;
     *)
         echo "Moving next step..."
@@ -45,7 +47,7 @@ case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
 apt-get -y install chrony
-curl -o /etc/chrony/chrony.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/chrony.conf
+curl -o /etc/chrony/chrony.conf $repo/controller/chrony.conf
 service chrony restart
         ;;
     *)
@@ -96,10 +98,10 @@ echo mariadb-server-5.5 mysql-server/root_password password $ROOT_DB_PASS | debc
 echo mariadb-server-5.5 mysql-server/root_password_again password $ROOT_DB_PASS | debconf-set-selections
 apt-get -y install mariadb-server python-pymysql
 curl -o /etc/mysql/conf.d/mysqld_openstack.cnf \
-https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/mysqld_openstack.cnf
+$repo/controller/mysqld_openstack.cnf
 service mysql restart
 apt-get -y install expect
-curl -o /root/dbsec.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dbsec.sh
+curl -o /root/dbsec.sh $repo/controller/dbsec.sh
 sh dbsec.sh
 rm -rf dbsec.sh
         ;;
@@ -115,7 +117,7 @@ case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
 apt-get -y install mongodb-server mongodb-clients python-pymongo
-curl -o /root/mongodb.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/mongodb.conf
+curl -o /root/mongodb.conf $repo/controller/mongodb.conf
 service mongodb restart
         ;;
     *)
@@ -149,7 +151,7 @@ mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone
 mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY '$KEYSTONE_DBPASS'"
 echo "manual" > /etc/init/keystone.override
 apt-get -y install keystone apache2 libapache2-mod-wsgi memcached python-memcache
-curl -o /etc/keystone/keystone.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/keystone.conf
+curl -o /etc/keystone/keystone.conf $repo/controller/keystone.conf
 sh pw_update.sh /etc/keystone/keystone.conf
 su -s /bin/sh -c "keystone-manage db_sync" keystone
         ;;
@@ -164,8 +166,8 @@ read -r -p "9) Download and configure Apache2 ? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
-curl -o /etc/apache2/apache2.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/apache2.conf
-curl -o /etc/apache2/sites-available/wsgi-keystone.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/wsgi-keystone.conf
+curl -o /etc/apache2/apache2.conf $repo/controller/apache2.conf
+curl -o /etc/apache2/sites-available/wsgi-keystone.conf $repo/controller/wsgi-keystone.conf
 ln -s /etc/apache2/sites-available/wsgi-keystone.conf /etc/apache2/sites-enabled
 service apache2 restart
 rm -f /var/lib/keystone/keystone.db
@@ -228,8 +230,8 @@ read -r -p "12) Create OpenStack client environment scripts? [y/N] " response
 case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
-curl -o /root/admin-openrc.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/admin-openrc.sh
-curl -o /root/demo-openrc.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/demo-openrc.sh
+curl -o /root/admin-openrc.sh $repo/controller/admin-openrc.sh
+curl -o /root/demo-openrc.sh $repo/controller/demo-openrc.sh
 sh pw_update.sh /root/admin-openrc.sh
 sh pw_update.sh /root/demo-openrc.sh
 . $rootpath/admin-openrc.sh
@@ -258,8 +260,8 @@ openstack endpoint create --region RegionOne image public http://controller:9292
 openstack endpoint create --region RegionOne image internal http://controller:9292
 openstack endpoint create --region RegionOne image admin http://controller:9292
 apt-get -y install glance python-glanceclient
-curl -o /etc/glance/glance-api.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/glance-api.conf
-curl -o /etc/glance/glance-registry.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/glance-registry.conf
+curl -o /etc/glance/glance-api.conf $repo/controller/glance-api.conf
+curl -o /etc/glance/glance-registry.conf $repo/controller/glance-registry.conf
 sh pw_update.sh /etc/glance/glance-api.conf
 sh pw_update.sh /etc/glance/glance-registry.conf
 su -s /bin/sh -c "glance-manage db_sync" glance
@@ -294,7 +296,7 @@ openstack endpoint create --region RegionOne compute public http://controller:87
 openstack endpoint create --region RegionOne compute internal http://controller:8774/v2/%\(tenant_id\)s
 openstack endpoint create --region RegionOne compute admin http://controller:8774/v2/%\(tenant_id\)s
 apt-get -y install nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient
-curl -o /etc/nova/nova.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/nova.conf
+curl -o /etc/nova/nova.conf $repo/controller/nova.conf
 sh pw_update.sh /etc/nova/nova.conf
 su -s /bin/sh -c "nova-manage db sync" nova
 service nova-api restart
@@ -331,14 +333,14 @@ apt-get -y install neutron-server neutron-plugin-ml2 \
     neutron-plugin-linuxbridge-agent neutron-l3-agent neutron-dhcp-agent \
     neutron-metadata-agent python-neutronclient
 
-curl -o /etc/neutron/neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/neutron.conf
-curl -o /etc/neutron/plugins/ml2/ml2_conf.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/ml2_conf.ini
-curl -o /etc/neutron/plugins/ml2/linuxbridge_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/linuxbridge_agent.ini
-curl -o /etc/neutron/l3_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/l3_agent.ini
-curl -o /etc/neutron/dhcp_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dhcp_agent.ini
-curl -o /etc/neutron/dnsmasq-neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/dnsmasq-neutron.conf
-curl -o /etc/neutron/neutron.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/neutron.conf
-curl -o /etc/neutron/metadata_agent.ini https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/metadata_agent.ini
+curl -o /etc/neutron/neutron.conf $repo/controller/neutron.conf
+curl -o /etc/neutron/plugins/ml2/ml2_conf.ini $repo/controller/ml2_conf.ini
+curl -o /etc/neutron/plugins/ml2/linuxbridge_agent.ini $repo/controller/linuxbridge_agent.ini
+curl -o /etc/neutron/l3_agent.ini $repo/controller/l3_agent.ini
+curl -o /etc/neutron/dhcp_agent.ini $repo/controller/dhcp_agent.ini
+curl -o /etc/neutron/dnsmasq-neutron.conf $repo/controller/dnsmasq-neutron.conf
+curl -o /etc/neutron/neutron.conf $repo/controller/neutron.conf
+curl -o /etc/neutron/metadata_agent.ini $repo/controller/metadata_agent.ini
 
 sh pw_update.sh /etc/neutron/neutron.conf
 sh pw_update.sh /etc/neutron/plugins/ml2/ml2_conf.ini
@@ -391,7 +393,7 @@ case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
 apt-get -y install openstack-dashboard
-curl -o /etc/openstack-dashboard/local_settings.py https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/local_settings.py
+curl -o /etc/openstack-dashboard/local_settings.py $repo/controller/local_settings.py
 apt-get -y remove --auto-remove openstack-dashboard-ubuntu-theme
 service apache2 reload
         ;;
@@ -421,7 +423,7 @@ openstack endpoint create --region RegionOne volumev2 public http://controller:8
 openstack endpoint create --region RegionOne volumev2 internal http://controller:8776/v2/%\(tenant_id\)s
 openstack endpoint create --region RegionOne volumev2 admin http://controller:8776/v2/%\(tenant_id\)s
 apt-get -y install cinder-api cinder-scheduler python-cinderclient
-curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/cinder.conf
+curl -o /etc/cinder/cinder.conf $repo/controller/cinder.conf
 sh pw_update.sh /etc/cinder/cinder.conf
 su -s /bin/sh -c "cinder-manage db sync" cinder
 /etc/init.d/nova-api restart
@@ -451,7 +453,7 @@ openstack endpoint create --region RegionOne object-store internal http://contro
 openstack endpoint create --region RegionOne object-store admin http://controller:8080/v1
 apt-get -y install swift swift-proxy python-swiftclient python-keystoneclient python-keystonemiddleware memcached
 mkdir /etc/swift
-curl -o /etc/swift/proxy-server.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/proxy-server.conf
+curl -o /etc/swift/proxy-server.conf $repo/controller/proxy-server.conf
 sh pw_update.sh /etc/swift/proxy-server.conf
 cd /etc/swift/
 
@@ -479,7 +481,7 @@ swift-ring-builder object.builder add --region 1 --zone 4 --ip 10.0.0.41 --port 
 swift-ring-builder object.builder
 swift-ring-builder object.builder rebalance
 
-curl -o /etc/swift/swift.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/swift.conf
+curl -o /etc/swift/swift.conf $repo/controller/swift.conf
 
 chown -R root:swift /etc/swift
 /etc/init.d/memcached restart
@@ -524,7 +526,7 @@ openstack role add --project demo --user demo heat_stack_owner
 openstack role create heat_stack_user
 apt-get -y install heat-api heat-api-cfn heat-engine python-heatclient
 
-curl -o /etc/heat/heat.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/controller/heat.conf
+curl -o /etc/heat/heat.conf $repo/controller/heat.conf
 sh pw_update.sh /etc/heat/heat.conf
 su -s /bin/sh -c "heat-manage db_sync" heat
 /etc/init.d/heat-api restart
