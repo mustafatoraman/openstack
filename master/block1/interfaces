@@ -13,3 +13,9 @@ iface eth0 inet static
         # dns-* options are implemented by the resolvconf package, if installed
         dns-nameservers 8.8.8.8
         dns-search localhost
+        
+# Host-only network to access ssh
+auto eth2
+iface eth2 inet static
+        address 10.0.10.30
+        netmask 255.255.255.0
