@@ -1,5 +1,8 @@
 #!/bin/bash
+
 cd
+
+repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 
 file="/dev/sdb"
 if [ -e "$file" ]
@@ -15,11 +18,11 @@ rootpath=/root
 . $rootpath/passwords.sh
 
 #Download pw updater
-curl -o /root/pw_update.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/pw_update.sh
+curl -o /root/pw_update.sh $repo/pw_update.sh
 
 #Configure NTP
 apt-get -y install chrony
-curl -o /etc/chrony/chrony.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/chrony.conf
+curl -o /etc/chrony/chrony.conf $repo/block1/chrony.conf
 service chrony restart
 
 #Install OpenStack packages
@@ -32,7 +35,7 @@ apt-get -y install python-openstackclient
 apt-get -y install lvm2
 pvcreate $blockdisk
 vgcreate cinder-volumes $blockdisk
-curl -o /etc/lvm/lvm.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/lvm.conf
+curl -o /etc/lvm/lvm.conf $repo/block1/lvm.conf
 
 if [ -e "$file" ]
 then
@@ -42,7 +45,7 @@ sed -i "s/sdb/vdb/g" /etc/lvm/lvm.conf
 fi
 
 apt-get -y install cinder-volume python-mysqldb
-curl -o /etc/cinder/cinder.conf https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/block1/cinder.conf
+curl -o /etc/cinder/cinder.conf $repo/block1/cinder.conf
 sh pw_update.sh /etc/cinder/cinder.conf
 service tgt restart
 service cinder-volume restart
