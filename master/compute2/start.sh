@@ -1,7 +1,12 @@
 #!/bin/bash
+
+repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
+
 cd
 
-curl -o /etc/network/interfaces https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/interfaces
-curl -o /etc/hostname https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/hostname
-curl -o /etc/hosts https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/hosts
-curl -o /root/install.sh https://raw.githubusercontent.com/mustafatoraman/openstack/master/master/compute2/install.sh
+curl -o /etc/network/interfaces $repo/compute2/interfaces
+curl -o /etc/hostname $repo/compute2/hostname
+curl -o /etc/hosts $repo/compute2/hosts
+curl -o /root/install.sh $repo/compute2/install.sh
+
+reboot
