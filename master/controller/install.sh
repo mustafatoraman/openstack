@@ -354,15 +354,22 @@ rootpath=/root
 
 . $rootpath/admin-openrc.sh
 neutron net-create public --shared --provider:physical_network public --provider:network_type flat
+sleep 5
 neutron subnet-create public 9.100.16.0/24 --name public --allocation-pool start=9.100.16.10,end=9.100.16.254 --dns-nameserver 8.8.4.4 --gateway 9.100.16.1
+sleep 5
 . $rootpath/demo-openrc.sh
 neutron net-create private
+sleep 5
 neutron subnet-create private 172.16.1.0/24 --name private --dns-nameserver 8.8.4.4 --gateway 172.16.1.1
+sleep 5
 . $rootpath/admin-openrc.sh
 neutron net-update public --router:external
+sleep 5
 . $rootpath/demo-openrc.sh
 neutron router-create router
+sleep 5
 neutron router-interface-add router private
+sleep 5
 neutron router-gateway-set router public
 
         ;;
