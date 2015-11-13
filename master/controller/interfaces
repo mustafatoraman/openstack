@@ -18,12 +18,11 @@ iface eth0 inet static
         dns-search localhost
 
 # The public network interface
-auto eth1          
+auto eth1
 iface  eth1 inet manual
         up ip link set dev $IFACE up
         down ip link set dev $IFACE down
 
-# Host-only network to access ssh
 auto eth2
 iface eth2 inet static
         address 10.0.10.10
