@@ -15,7 +15,7 @@ iface eth0 inet static
         dns-search localhost
         
 # Host-only network to access ssh
-auto eth2
-iface eth2 inet static
+auto eth1
+iface eth1 inet static
         address 10.0.10.30
         netmask 255.255.255.0
