@@ -542,7 +542,7 @@ case $response in
     [yY][eE][sS]|[yY]) 
         echo "Starting..."
 apt-get -y install mongodb-server mongodb-clients python-pymongo
-curl -o /root/mongodb.conf $repo/controller/mongodb.conf
+curl -o /etc/mongodb.conf $repo/controller/mongodb.conf
 service mongodb restart
         ;;
     *)
