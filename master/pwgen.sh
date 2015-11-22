@@ -27,5 +27,5 @@ echo "NOVA_PASS=$(openssl rand -hex 6)" >> passwords.sh
 echo "RABBIT_PASS=$(openssl rand -hex 6)" >> passwords.sh
 echo "SWIFT_PASS=$(openssl rand -hex 6)" >> passwords.sh
 echo "METADATA_SECRET=$(openssl rand -hex 10)" >> passwords.sh
-echo "Passwords saved at /root/passwords.sh$ for reference"
+echo "Passwords saved at /root/passwords.sh for reference"
 sleep 3 
