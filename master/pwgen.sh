@@ -57,6 +57,6 @@ printf "SWIFT_PASS                $SWIFT_PASS\n"
 printf "METADATA_SECRET           $METADATA_SECRET\n"
 echo "------------------------------------------------------"
 
-echo "Passwords saved at ${code}/root/passwords.sh${clear} for reference"
+echo "Passwords saved at /root/passwords.sh$ for reference"
 
 sleep 3 
