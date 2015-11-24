@@ -2,26 +2,25 @@
 auto lo
 iface lo inet loopback
 
-# The primary network interface
+# Host-only network interface
 auto eth0
 iface eth0 inet static
-	address 10.0.0.20
-	netmask 255.255.255.0
-	network 10.0.0.0
-	broadcast 10.0.0.255
-	gateway 10.0.0.1
-	# dns-* options are implemented by the resolvconf package, if installed
-	dns-nameservers 8.8.8.8
-	dns-search localhost
+        address 172.16.0.20
+        netmask 255.255.255.0
+        
+# The primary network interface
+auto eth1
+iface eth1 inet static
+        address 10.0.0.20
+        netmask 255.255.255.0
+        network 10.0.0.0
+        broadcast 10.0.0.255
+        gateway 10.0.0.1
+        dns-nameservers 8.8.8.8
+        dns-search localhost
 
 # The public network interface
-auto eth1
-iface eth1 inet manual
-	up ip link set dev $IFACE up
-	down ip link set dev $IFACE down
-
-# Host-only network to access ssh
 auto eth2
-iface eth2 inet static
-        address 10.0.10.20
-        netmask 255.255.255.0
+iface  eth2 inet manual
+        up ip link set dev $IFACE up
+        down ip link set dev $IFACE down
