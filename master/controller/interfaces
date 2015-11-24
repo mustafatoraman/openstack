@@ -8,7 +8,7 @@ iface eth0 inet static
         address 172.16.0.10
         netmask 255.255.255.0
         
-# The primary network interface
+# Management network interface
 auto eth1
 iface eth1 inet static
         address 10.0.0.10
