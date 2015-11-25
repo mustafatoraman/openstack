@@ -349,7 +349,19 @@ service neutron-metadata-agent restart
 service neutron-l3-agent restart
 
 rm -f /var/lib/neutron/neutron.sqlite
+        ;;
+    *)
+        echo "Moving next step..."
+        ;;
+esac
 
+
+
+clear
+read -r -p "14) Create virtual networks [y/N] " response
+case $response in
+    [yY][eE][sS]|[yY]) 
+        echo "Starting..."
 sleep 5
 
 rootpath=/root
@@ -357,7 +369,7 @@ rootpath=/root
 . $rootpath/admin-openrc.sh
 neutron net-create public --shared --provider:physical_network public --provider:network_type flat
 sleep 5
-neutron subnet-create public 9.100.16.0/24 --name public --allocation-pool start=9.100.16.10,end=9.100.16.254 --dns-nameserver 8.8.4.4 --gateway 9.100.16.1
+neutron subnet-create public 192.168.10.0/24 --name public --allocation-pool start=192.168.10.10,end=192.168.10.250 --dns-nameserver 8.8.4.4 --gateway 192.168.10.1
 sleep 5
 . $rootpath/demo-openrc.sh
 neutron net-create private
@@ -374,12 +386,12 @@ neutron router-interface-add router private
 sleep 5
 neutron router-gateway-set router public
 
+
         ;;
     *)
         echo "Moving next step..."
         ;;
 esac
-
 
 
 clear
