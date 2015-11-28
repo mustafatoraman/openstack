@@ -1,6 +1,6 @@
 #!/bin/bash
 rootpath=/root
-. $rootpath/passwords.sh
+. $rootpath/passwords
 
 SECURE_MYSQL=$(expect -c "
 set timeout 10
