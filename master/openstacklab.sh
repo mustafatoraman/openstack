@@ -705,7 +705,9 @@ Steps to install SQL Database\n\n\
 				dialog 	--title " Securing the database service " \
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
-
+				
+				rm -rf /root/dbsec.sh
+				
 				dialog 	--ok-label "Continue" \
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--msgbox  "Database service setup completed. " 5 120
