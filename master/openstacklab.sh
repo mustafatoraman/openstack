@@ -2171,7 +2171,7 @@ Steps to install Swift - Object Storage Service\n\n\
 
 				chown -R root:swift /etc/swift
 
-				(/etc/init.d/memcached restart && \
+				(/etc/init.d/memcached restart && service apache2 restart &&  \
 				/etc/init.d/swift-proxy restart ) 2>&1 | \
 				dialog 	--title " Restarting swift and related services " \
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
@@ -2229,7 +2229,8 @@ Steps to install Heat - Orchestration Service\n\n\
 		case $? in
   			0)
 				sleep 1
-
+				
+				service apache2 restart  > /dev/null 2>&1
 				restart_apache2 > /dev/null 2>&1
 				
 				rootpath=/root
