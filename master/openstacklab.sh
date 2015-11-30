@@ -705,9 +705,7 @@ Steps to install SQL Database\n\n\
 				dialog 	--title " Securing the database service " \
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
-				
-				rm -rf /root/dbsec.sh
-				
+
 				dialog 	--ok-label "Continue" \
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--msgbox  "Database service setup completed. " 5 120
@@ -2133,7 +2131,8 @@ Steps to install Swift - Object Storage Service\n\n\
 						--textbox /etc/swift/swift.conf 40 120
 
 				pw_update /etc/swift/proxy-server.conf
-
+				pw_update /etc/swift/swift.conf
+				
 				cd /etc/swift/
 
 				( swift-ring-builder account.builder create 10 3 1 && \
@@ -2862,6 +2861,8 @@ Steps to install Object Storage Node\n\n\
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--textbox /etc/swift/swift.conf 40 120
 
+				pw_update /etc/swift/swift.conf
+				
 				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--infobox "Setting folder permissions" 4 120 ; sleep $speed
 
