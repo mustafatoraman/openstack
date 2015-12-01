@@ -8,8 +8,8 @@ repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 local_file_size=$(du -sb /root/openstacklab.sh | awk '{print $1}')
 remote_file_size=$(curl -sI $repo/openstacklab.sh | grep Content-Length | awk '{print $2}')
 
-if [ "$local_file_size" != "$remote_file_size" ]; then
-	dialog 	--colors \
+if [ "$local_file_size" -ne "$remote_file_size" ]; then
+        dialog 	--colors \
 		--title " Updater " \
 		--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 		--ok-label "Continue" \
@@ -19,7 +19,7 @@ if [ "$local_file_size" != "$remote_file_size" ]; then
 	wget -O /root/openstacklab.sh $repo/openstacklab.sh > /dev/null 2>&1
 	chmod +x /root/openstacklab.sh > /dev/null 2>&1
 else
-	sleep 0
+        sleep 0
 fi
 
 # temp/trap ##############################################################################
