@@ -15,11 +15,15 @@ if [ "$local_file_size" -ne "$remote_file_size" ]; then
 		--ok-label "Continue" \
 		--infobox " New update found! Updating script file..." 4 120 ; sleep 4
 	
-	rm -rf /root/openstacklab.sh > /dev/null 2>&1
-	wget -O /root/openstacklab.sh $repo/openstacklab.sh > /dev/null 2>&1
-	chmod +x /root/openstacklab.sh > /dev/null 2>&1
+	echo $local_file_size
+	echo $remote_file_size
+	
+	rm -rf /root/openstacklab.sh 
+	curl -o /root/openstacklab.sh $repo/openstacklab.sh 
+	chmod +x /root/openstacklab.sh
 else
-        sleep 0
+	echo $local_file_size
+	echo $remote_file_size
 fi
 
 # temp/trap ##############################################################################
