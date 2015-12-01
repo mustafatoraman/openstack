@@ -19,6 +19,7 @@ if [ "$local_file_size" != "$remote_file_size" ]; then
 	wget -O /root/openstacklab.sh    > /dev/null 2>&1
 	chmod +x /root/openstacklab.sh > /dev/null 2>&1
 else
+	sleep 0
 fi
 
 # temp/trap ##############################################################################
