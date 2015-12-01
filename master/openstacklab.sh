@@ -5,15 +5,21 @@ repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 
 # updater ################################################################################
 
-dialog 	--colors \
-	--title " Script Updater " \
-	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
-	--ok-label "Continue" \
-	--infobox " Checking for updates..." 4 120 ; sleep 4
+local_file_size=$(du -sb /root/openstacklab.sh | awk '{print $1}')
+remote_file_size=$(curl -sI $repo/openstacklab.sh | grep Content-Length | awk '{print $2}')
+
+if [ "$local_file_size" != "$remote_file_size" ]; then
+	dialog 	--colors \
+		--title " Updater " \
+		--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+		--ok-label "Continue" \
+		--infobox " New update found! Updating script file..." 4 120 ; sleep 4
 	
-rm -rf /root/openstacklab.sh > /dev/null 2>&1
-wget -O /root/openstacklab.sh  $repo/openstacklab.sh  > /dev/null 2>&1
-chmod +x /root/openstacklab.sh > /dev/null 2>&1
+	rm -rf /root/openstacklab.sh > /dev/null 2>&1
+	wget -O /root/openstacklab.sh    > /dev/null 2>&1
+	chmod +x /root/openstacklab.sh > /dev/null 2>&1
+else
+fi
 
 # temp/trap ##############################################################################
 
