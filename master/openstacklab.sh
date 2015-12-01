@@ -1,6 +1,19 @@
 #!/bin/bash
+# repo ###################################################################################
 
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
+
+# updater ################################################################################
+
+dialog 	--colors \
+	--title " Script Updater " \
+	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+	--ok-label "Continue" \
+	--infobox " Checking for updates..." 4 120 ; sleep 4
+	
+rm -rf /root/openstacklab.sh > /dev/null 2>&1
+wget -O /root/openstacklab.sh  $repo/openstacklab.sh  > /dev/null 2>&1
+chmod +x /root/openstacklab.sh > /dev/null 2>&1
 
 # temp/trap ##############################################################################
 
