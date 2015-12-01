@@ -8,6 +8,7 @@ repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 local_file_size=$(du -sb /root/openstacklab.sh | awk '{print $1}')
 remote_file_size=$(curl -sI $repo/openstacklab.sh | grep Content-Length | awk '{print $2}')
 
+do
 if [ "$local_file_size" != "$remote_file_size" ]; then
 	dialog 	--colors \
 		--title " Updater " \
@@ -21,6 +22,7 @@ if [ "$local_file_size" != "$remote_file_size" ]; then
 else
 	sleep 0
 fi
+done
 
 # temp/trap ##############################################################################
 
