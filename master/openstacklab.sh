@@ -4,8 +4,6 @@
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 
 # updater ################################################################################
-# updater ################################################################################
-# updater ################################################################################
 
 local_file_size=$(du -sb /root/openstacklab.sh | awk '{print $1}')
 remote_file_size=$(curl -sI $repo/openstacklab.sh | grep Content-Length | awk '{print $2}')
