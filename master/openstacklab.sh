@@ -1384,7 +1384,7 @@ Steps to install Nova - Compute Service\n\n\
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name nova --description "OpenStack Compute" compute 2>&1 | \
-				dialog 	--title " Creating the glance service entity " \
+				dialog 	--title " Creating the nova service entity " \
 						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
