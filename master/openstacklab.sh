@@ -1479,7 +1479,7 @@ ${info}This service require Neutron Client installation in nova nodes !${clear}\
 Steps to install Neutron - Networking Service\n\n\
 1) ${bold}Create Neutron database${clear}\n\
 2) ${bold}Create the service credentials${clear}\n\
-3) ${bold}Create the Image service API endpoints${clear}\n\
+3) ${bold}Create the Neutron service API endpoints${clear}\n\
 4) ${bold}Install and configure Neutron components${clear}\n\
 5) ${bold}Download preconfigured neutron configuration files${clear}\n\
 6) ${bold}Populate the Neutron service database${clear}\n\
