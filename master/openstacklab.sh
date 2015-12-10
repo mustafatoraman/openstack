@@ -211,6 +211,24 @@ then
 fi
 }
 
+# check_internet_access ##################################################################
+
+check_internet_access () {
+
+	wget -q -T 5 --spider http://google.com
+
+	if [ $? -eq 0 ]; then
+		sleep 0
+	else
+		dialog 	--colors \
+				--title " Internet Access Failed! " \
+				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--infobox " The Internet connection appears as failed , please check your settings and retry again. " 4 120 ; sleep 5
+		clear
+		exit 0
+	fi
+}
+
 # 1.1 ####################################################################################
 
 
@@ -332,6 +350,8 @@ object2      |  Host-only - 172.16.0.41  |  Management (NAT) - 10.0.0.41  |\n\n\
 # 1.4 ####################################################################################
 
 1.4 () {
+	
+	check_internet_access
 
 	$DIALOG --colors \
 			--title " 1.4 - Prerequisites - Node Networking Setup " --clear \
@@ -398,6 +418,8 @@ ${bold}/etc/hosts${clear}\n" 12 120
 
 1.5 () {
 
+	check_internet_access
+	
 	$DIALOG --colors \
 			--yes-label "Continue" \
 			--no-label "Exit" \
@@ -450,6 +472,8 @@ Steps to configure NTP service\n\n\
 # 1.6 ####################################################################################
 
 1.6 () {
+
+	check_internet_access
 	
 	$DIALOG --colors \
 			--title " 1.6 - Prerequisites - OpenStack Packages " --clear \
@@ -656,6 +680,8 @@ ${code}cat /root/passwords${clear}" 35 120
 
 2.2 () {
 
+	check_internet_access
+	
 	if [ "$(hostname)" = "controller" ]; then
 
 		$DIALOG --colors \
@@ -726,6 +752,8 @@ Steps to install SQL Database\n\n\
 
 2.3 () {
 
+	check_internet_access
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -781,6 +809,8 @@ Steps to install RabbitMQ Message Queueu\n\n\
 # 2.4 ####################################################################################
 
 2.4 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "controller" ]; then
 
@@ -881,6 +911,8 @@ Steps to install Keystone Identity Service\n\n\
 
 2.5 () {
 
+	check_internet_access
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -959,6 +991,8 @@ Steps to create Service entity and API endpoints\n\n\
 # 2.6 ####################################################################################
 
 2.6 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "controller" ]; then
 
@@ -1067,6 +1101,8 @@ Steps to create projects, users, and roles\n\n\
 
 2.7 () {
 
+	check_internet_access
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -1162,6 +1198,8 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 
 2.8 () {
 
+	check_internet_access
+	
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -1323,6 +1361,8 @@ Steps to install Glance - Image Service\n\n\
 
 2.9 () {
 
+	check_internet_access
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -1458,6 +1498,8 @@ Steps to install Nova - Compute Service\n\n\
 # 2.10 ###################################################################################
 
 2.10 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "controller" ]; then
 
@@ -1648,6 +1690,8 @@ Steps to install Neutron - Networking Service\n\n\
 
 2.11 () {
 
+	check_internet_access
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -1788,6 +1832,8 @@ Steps to create virtual networks\n\n\
 
 2.12 () {
 
+	check_internet_access
+	
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -1869,6 +1915,8 @@ Steps to install Horizon - OpenStack Dashboard\n\n\
 # 2.13 ###################################################################################
 
 2.13 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "controller" ]; then
 
@@ -2026,6 +2074,8 @@ Steps to install Cinder - Block Storage Service\n\n\
 # 2.14 ###################################################################################
 
 2.14 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "controller" ]; then
 
@@ -2200,6 +2250,8 @@ Steps to install Swift - Object Storage Service\n\n\
 # 2.15 ###################################################################################
 
 2.15 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "controller" ]; then
 
@@ -2390,6 +2442,8 @@ Steps to install Heat - Orchestration Service\n\n\
 
 3.0 () {
 
+	check_internet_access
+	
 	if [ "$(hostname)" = "compute1" ] || [ "$(hostname)" = "compute2" ]; then
 
 		$DIALOG --colors \
@@ -2435,6 +2489,8 @@ Steps to install Compute Node\n\n\
 # 3.1 ####################################################################################
 
 3.1 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "compute1" ] || [ "$(hostname)" = "compute2" ]; then
 
@@ -2511,6 +2567,8 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 # 3.2 ####################################################################################
 
 3.2 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "compute1" ] || [ "$(hostname)" = "compute2" ]; then
 
@@ -2593,6 +2651,8 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 # 4.0 ####################################################################################
 
 4.0 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "block1" ]; then
 
@@ -2701,6 +2761,8 @@ Steps to install Block Storage Node\n\n\
 # 5.0 ####################################################################################
 
 5.0 () {
+
+	check_internet_access
 
 	if [ "$(hostname)" = "object1" ] || [ "$(hostname)" = "object2" ]; then
 
@@ -2895,6 +2957,8 @@ Steps to install Object Storage Node\n\n\
 
 menu () {
 
+check_internet_access
+
 speed_menu
 
 if [ "$(hostname)" = "controller" ]; then
@@ -3003,6 +3067,7 @@ Do you want to continue ?\n" 30 53
 
 case $? in
   0)
+  	check_internet_access
   	menu ;;
   1)
     clear
