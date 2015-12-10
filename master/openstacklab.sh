@@ -215,7 +215,7 @@ fi
 
 check_internet_access () {
 
-	wget -q -T 5 --spider http://google.com
+	wget -q -T 10 --spider http://google.com
 
 	if [ $? -eq 0 ]; then
 		sleep 0
