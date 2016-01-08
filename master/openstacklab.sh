@@ -37,7 +37,7 @@ speed_menu () {
 			--default-item "5" \
 			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
         	--menu "\nPlease select one of the following option for delay (seconds) between each automated step.\n\n\
-This option may help you to have enough time to review each step results or install without delay for faster result.\n \n" 16 120 5 \
+This option may help you to have enough time to review each step results or complete installation without delay.\n \n" 16 120 5 \
 "1" "${bold}Very Fast${clear}      (1 second delay)" \
 "3" "${bold}Fast${clear}           (3 seconds delay)" \
 "5" "${bold}Normal${clear}         (5 seconds delay)" \
