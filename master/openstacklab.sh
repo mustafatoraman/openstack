@@ -35,7 +35,7 @@ speed_menu () {
 	$DIALOG	--colors \
 			--clear --title " Automated Step Speed Selection " \
 			--default-item "5" \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
         	--menu "\nPlease select one of the following option for delay (seconds) between each automated step.\n\n\
 This option may help you to have enough time to review each step results or complete installation without delay.\n \n" 16 120 5 \
 "1" "${bold}Very Fast${clear}      (1 second delay)" \
@@ -65,7 +65,7 @@ if [ -f /root/passwords ]; then
 	
 	dialog 	--colors \
 			--ok-label "Continue" \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors"\
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors"\
 			--msgbox  "Passwords file found, we will use existing passwords in ${bold}/root/passwords${clear} ." 5 120
 
 else
@@ -74,7 +74,7 @@ else
 	cd
 	echo "Generating random passwords for setup" 2>&1 |\
 		dialog 	--title " Generating random passwords "\
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors"\
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors"\
 				--progressbox 40 120; sleep $speed
 
 	echo "ADMIN_PASS=$(openssl rand -hex 4)"        >> passwords
@@ -104,7 +104,7 @@ else
 	
 	echo "Passwords saved in /root/passwords for reference" 2>&1 | \
 		dialog 	--title " Generating random passwords " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--progressbox 40 120; sleep $speed
 fi }
 
@@ -149,7 +149,7 @@ reboot_now () {
 
 	$DIALOG --colors \
 			--title " Reboot Required " --clear \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -163,7 +163,7 @@ ${code}ssh root@$hostonlyip${clear}" 13 120
   			0)
 				sleep 1
 				$DIALOG	--colors \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors"\
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors"\
 						--ok-label "Continue" \
 						--yes-label "Reboot" \
 						--no-label "Exit" \
@@ -191,7 +191,7 @@ wrong_server () {
 
 	dialog 	--colors \
 			--title " Wrong Server! " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--ok-label "Continue" \
 			--infobox " You are in wrong step. This is ${info}$(hostname) node${clear}! Returning to main menu..." 4 120 ; sleep $speed
 	menu
@@ -222,7 +222,7 @@ check_internet_access () {
 	else
 		dialog 	--colors \
 				--title " Internet Access Failed! " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--infobox " The Internet connection appears as failed , please check your settings and retry again. " 4 120 ; sleep 5
 		clear
 		exit 0
@@ -248,7 +248,7 @@ check_internet_access () {
 	$DIALOG --colors \
 			--clear \
 			--title " 1.1 - Example Architecture - Hardware Requirements " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -289,7 +289,7 @@ object2     |   1 core    |   1 GB   |   3 Disks - 50 GB + 1 TB + 1 TB   |   2 N
 1.2 () {
 	$DIALOG --colors \
 			--title " 1.2 - Example Architecture - Network Requirements " --clear \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -323,7 +323,7 @@ object2      |  Host-only - 172.16.0.41  |  Management (NAT) - 10.0.0.41  |\n\n\
 1.3 () {
 	
 	$DIALOG	--clear --title " 1.3 - Prerequisites - Node Selection " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
         	--menu "Please select the node you want to start installation in this candidate server?" 13 120 6 \
         "controller"  "Master node for MySQL, RabbitMQ, Keystone, Glance and Neutron Services." \
         "compute1" "Required node for Nova Computing service." \
@@ -355,7 +355,7 @@ object2      |  Host-only - 172.16.0.41  |  Management (NAT) - 10.0.0.41  |\n\n\
 
 	$DIALOG --colors \
 			--title " 1.4 - Prerequisites - Node Networking Setup " --clear \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -371,39 +371,39 @@ ${bold}/etc/hosts${clear}\n" 12 120
 
 			wget -O /etc/network/interfaces $repo/$(hostname)/interfaces 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/network/interfaces " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			wget -O /etc/hostname $repo/$(hostname)/hostname 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/hostname " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			wget -O /etc/hosts $repo/$(hostname)/hosts 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/hosts " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 		
 			dialog 	--ok-label "Continue" \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--msgbox  "Node Networking Setup completed. " 5 120
 
 			dialog  --clear\
 					--exit-label Continue \
 					--title " Review /etc/network/interfaces " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--textbox /etc/network/interfaces 40 120
 
 			dialog  --clear\
 					--exit-label Continue \
 					--title " Review /etc/hostname " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--textbox /etc/hostname 40 120
 
 			dialog  --clear\
 					--exit-label Continue \
 					--title " Review /etc/hosts " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--textbox /etc/hosts 40 120
     		1.5
 			clear;;
@@ -424,7 +424,7 @@ ${bold}/etc/hosts${clear}\n" 12 120
 			--yes-label "Continue" \
 			--no-label "Exit" \
 			--title " 1.5 - Prerequisites - Network Time Protocol (NTP) Setup " --clear \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
        		--yesno "\n\
 OpenStack require NTP Network Time Protocol to properly synchronize services among nodes.\n\n\
 Steps to configure NTP service\n\n\
@@ -438,27 +438,27 @@ Steps to configure NTP service\n\n\
 
 			apt-get -y install chrony 2>&1 | \
 			dialog 	--title " Installing Chrony packages " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			wget -O /etc/chrony/chrony.conf $repo/$(hostname)/chrony.conf 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/chrony/chrony.conf " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			dialog  --clear\
 					--exit-label Continue \
 					--title " Review /etc/chrony/chrony.conf " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--textbox /etc/chrony/chrony.conf 40 120
 					
 			service chrony restart 2>&1 | \
 			dialog 	--title " Restarting the NTP service " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			dialog 	--ok-label "Continue" \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--msgbox  "NTP service setup completed. " 5 120
 
     		1.6 ;;
@@ -477,7 +477,7 @@ Steps to configure NTP service\n\n\
 	
 	$DIALOG --colors \
 			--title " 1.6 - Prerequisites - OpenStack Packages " --clear \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -493,21 +493,21 @@ Steps to install OpenStack Packages\n\n\
 
 			( apt-get -y install software-properties-common && add-apt-repository -y cloud-archive:liberty )  2>&1 | \
 			dialog 	--title " Enabling the OpenStack repository " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			( apt-get -y update && apt-get -y dist-upgrade ) 2>&1 | \
 			dialog 	--title " Upgrading the packages on host " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			apt-get -y install python-openstackclient arptables conntrack 2>&1 | \
 			dialog 	--title " Installing the OpenStack client and related packages " \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
 
 			dialog 	--ok-label "Continue" \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--msgbox  "OpenStack Package installation completed " 5 120
  
   			1.7 ;;
@@ -526,12 +526,12 @@ Steps to install OpenStack Packages\n\n\
 
 	$DIALOG --colors \
 			--title " 1.7 - Prerequisites - Reboot to Apply Changes " --clear \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
 Your ${info}$(hostname)${clear} node prerequisites are completed.\n\n\
-In order to continue OpenStack Lab installation , you have to reboot this node to activate new network settings and any OS Kernel upgrade. You can connect back to your ${info}$(hostname)${clear} node with following commands via SSH protocol.\n\n\
+In order to continue OpenStackLab installation , you have to reboot this node to activate new network settings and any OS Kernel upgrade. You can connect back to your ${info}$(hostname)${clear} node with following commands via SSH protocol.\n\n\
 ${code}ssh root@$(hostname)${clear}\n\
 or\n\
 ${code}ssh root@$hostonlyip${clear}\n\n\
@@ -546,7 +546,7 @@ ${code}openstacklab${clear}\n\n" 17 120
 					--ok-label "Continue" \
 					--yes-label "Reboot" \
 					--no-label "Exit" \
-					--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--yesno   "Please confirm to reboot ${info}$(hostname)${clear} node." 5 120
 			
 			case $? in
@@ -580,7 +580,7 @@ ${code}openstacklab${clear}\n\n" 17 120
 		$DIALOG --colors \
 			--clear \
 			--title " 2.1 - Generate Passwords " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -634,7 +634,7 @@ show_passwords () {
 	$DIALOG --colors \
 			--clear \
 			--title " 2.1 - Generate Passwords " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -687,7 +687,7 @@ ${code}cat /root/passwords${clear}" 35 120
 		$DIALOG --colors \
 				--clear \
 				--title " 2.2 - SQL Database " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -702,7 +702,7 @@ Steps to install SQL Database\n\n\
 			0)
 				sleep 1
 
-				dialog	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Installing the MariaDB packages..." 4 120 ; sleep $speed
 
 				load_passwords
@@ -713,28 +713,28 @@ Steps to install SQL Database\n\n\
 
 				wget -O /etc/mysql/conf.d/mysqld_openstack.cnf $repo/$(hostname)/mysqld_openstack.cnf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/mysql/conf.d/mysqld_openstack.cnf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/mysql/conf.d/mysqld_openstack.cnf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/mysql/conf.d/mysqld_openstack.cnf 40 120
 
 				service mysql restart > /dev/null 2>&1
 				echo "Restarting MariaDB database server mysqld..." 2>&1 | \
 				dialog 	--title " Restarting the database service " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				(wget -O /root/dbsec.sh $repo/$(hostname)/dbsec.sh && sh dbsec.sh) 2>&1 | \
 				dialog 	--title " Securing the database service " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Database service setup completed. " 5 120
 
    				2.3 ;;
@@ -761,7 +761,7 @@ Steps to install SQL Database\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.3 - RabbitMQ - Message queue " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
        			--yesno "\n\
@@ -778,21 +778,21 @@ Steps to install RabbitMQ Message Queueu\n\n\
 
 				apt-get -y install rabbitmq-server 2>&1 | \
 				dialog 	--title " Installing the RabbitMQ packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rabbitmqctl add_user openstack $RABBIT_PASS 2>&1 | \
 				dialog 	--title " Adding the openstack user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rabbitmqctl set_permissions openstack ".*" ".*" ".*" 2>&1 | \
 				dialog 	--title " Permit configuration, write, and read access for the openstack user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "RabbitMQ message queue service setup completed. " 5 120
 
     			2.4 ;;
@@ -819,7 +819,7 @@ Steps to install RabbitMQ Message Queueu\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.4 - Keystone - Identity Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -845,53 +845,53 @@ Steps to install Keystone Identity Service\n\n\
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY '$KEYSTONE_DBPASS'"
 				echo "manual" > /etc/init/keystone.override
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Creating keystone database..." 4 120 ; sleep $speed
 
 				apt-get -y install keystone apache2 libapache2-mod-wsgi memcached python-memcache 2>&1 | \
 				dialog 	--title " Downloading Keystone and Apache packagages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/keystone/keystone.conf $repo/$(hostname)/keystone.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/keystone/keystone.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/keystone/keystone.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/keystone/keystone.conf 40 120
 
 				pw_update /etc/keystone/keystone.conf
 
 				su -s /bin/sh -c "keystone-manage db_sync" keystone 2>&1 | \
 				dialog 	--title " Populate the Identity service database " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/apache2/apache2.conf $repo/$(hostname)/apache2.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/apache2/apache2.conf Apache configuration " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				ln -s /etc/apache2/sites-available/wsgi-keystone.conf /etc/apache2/sites-enabled
 
 				wget -O /etc/apache2/sites-available/wsgi-keystone.conf $repo/$(hostname)/wsgi-keystone.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/apache2/sites-available/wsgi-keystone.conf Keystone HTTP configuration " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				service apache2 restart 2>&1 | \
 				dialog 	--title " Restarting Apache HTTP server " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/keystone/keystone.db
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Keystone and Apache setup completed. " 5 120
 
 				restart_apache2 > /dev/null 2>&1
@@ -920,7 +920,7 @@ Steps to install Keystone Identity Service\n\n\
 		$DIALOG --colors \
 			--clear \
 			--title " 2.5 - Service entity and API endpoints " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -943,7 +943,7 @@ Steps to create Service entity and API endpoints\n\n\
 
 				restart_apache2 > /dev/null 2>&1
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Configuring the authentication token, endpoint URL and Identity API version" 4 120 ; sleep $speed
 
 				export OS_TOKEN=$ADMIN_TOKEN
@@ -952,26 +952,26 @@ Steps to create Service entity and API endpoints\n\n\
 
 				openstack service create --name keystone --description "OpenStack Identity" identity 2>&1 | \
 				dialog 	--title " Creating the service entity for the Identity service " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne identity public http://controller:5000/v2.0 2>&1 | \
 				dialog 	--title " Creating the Identity service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne identity internal http://controller:5000/v2.0 2>&1 | \
 				dialog 	--title " Creating the Identity service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne identity admin http://controller:35357/v2.0 2>&1 | \
 				dialog 	--title " Creating the Identity service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Service entity and API endpoints setup completed. " 5 120 
 
 
@@ -1001,7 +1001,7 @@ Steps to create Service entity and API endpoints\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.6 - Create projects, users, and roles " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1031,47 +1031,47 @@ Steps to create projects, users, and roles\n\n\
 
 				openstack project create --domain default --description "Admin Project" admin 2>&1 | \
 				dialog 	--title " Creating the admin project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain default --password $ADMIN_PASS admin 2>&1 | \
 				dialog 	--title " Creating the admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role create admin 2>&1 | \
 				dialog 	--title " Creating the admin role  " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project admin --user admin admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the admin project and user  " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack project create --domain default --description "Service Project" service 2>&1 | \
 				dialog 	--title " Creating the service project  " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack project create --domain default --description "Demo Project" demo 2>&1 | \
 				dialog 	--title " Creating the demo project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain default --password $DEMO_PASS demo 2>&1 | \
 				dialog 	--title " Creating the demo user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role create user 2>&1 | \
 				dialog 	--title " Creating the user role " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project demo --user demo user 2>&1 | \
 				dialog 	--title " Adding the user role to the demo project and user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				sed -i 's/token_auth admin_token_auth/token_auth/g' /etc/keystone/keystone-paste.ini
@@ -1081,7 +1081,7 @@ Steps to create projects, users, and roles\n\n\
 				openstack --os-auth-url http://controller:5000/v3 --os-project-domain-id default --os-user-domain-id default --os-project-name demo --os-username demo --os-password $DEMO_PASS token issue > /dev/null 2>&1
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Demo projects, users, and roles are created." 5 120
 
 				restart_apache2 > /dev/null 2>&1
@@ -1110,7 +1110,7 @@ Steps to create projects, users, and roles\n\n\
 		$DIALOG --colors \
 			--clear \
 			--title " 2.7 - OpenStack client environment scripts " \
-			--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+			--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 			--yes-label "Continue" \
 			--no-label "Exit" \
         	--yesno "\n\
@@ -1140,24 +1140,24 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 
 				wget -O /root/admin-openrc.sh $repo/$(hostname)/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Downloading preconfigured /root/admin-openrc.sh " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /root/demo-openrc.sh $repo/$(hostname)/demo-openrc.sh 2>&1 | \
 				dialog 	--title " Downloading preconfigured /root/demo-openrc.sh " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /root/admin-openrc.sh file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /root/admin-openrc.sh 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /root/demo-openrc.sh file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /root/demo-openrc.sh 40 120
 
 				pw_update /root/admin-openrc.sh
@@ -1169,16 +1169,16 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Load the admin-openrc.sh file to populate environment variables " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " OpenStack client environment scripts are created." 5 120 
 
 				restart_apache2 > /dev/null 2>&1
@@ -1207,7 +1207,7 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 		$DIALOG --colors \
 				--clear \
 				--title " 2.8 - Glance - Image Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1244,69 +1244,69 @@ Steps to install Glance - Image Service\n\n\
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --password $GLANCE_PASS glance 2>&1 | \
 				dialog 	--title " Creating the glance user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project service --user glance admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the glance user and service project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name glance --description "OpenStack Image service" image 2>&1 | \
 				dialog 	--title " Creating the glance service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne image public http://controller:9292 2>&1 | \
 				dialog 	--title " Create the Image service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne image internal http://controller:9292 2>&1 | \
 				dialog 	--title " Create the Image service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne image admin http://controller:9292 2>&1 | \
 				dialog 	--title " Create the Image service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install glance python-glanceclient 2>&1 | \
 				dialog 	--title " Installing the Glance packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/glance/glance-api.conf $repo/$(hostname)/glance-api.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/glance/glance-api.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/glance/glance-registry.conf $repo/$(hostname)/glance-registry.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/glance/glance-registry.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/glance/glance-api.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/glance/glance-api.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/glance/glance-registry.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/glance/glance-registry.conf 40 120
 
 				pw_update /etc/glance/glance-api.conf
@@ -1314,34 +1314,34 @@ Steps to install Glance - Image Service\n\n\
 
 				su -s /bin/sh -c "glance-manage db_sync" glance 2>&1 | \
 				dialog 	--title " Populating the Image service database " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( service glance-registry restart && service glance-api restart ) 2>&1 | \
 				dialog 	--title " Restarting glance-registry and glance-api services" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/glance/glance.sqlite
 
 				wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img 2>&1 | \
 				dialog 	--title " Download the CirrOS source image "\
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				glance image-create --name "CirrOS" --file cirros-0.3.4-x86_64-disk.img --disk-format \
 				qcow2 --container-format bare --visibility public --progress 2>&1 | \
 				dialog 	--title " Upload the image to the Image service " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				glance image-list 2>&1 | \
 				dialog 	--title " Confirming upload of the image and validate attributes " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Glance - Image Service setup completed." 5 120
 
 				restart_apache2 > /dev/null 2>&1
@@ -1370,7 +1370,7 @@ Steps to install Glance - Image Service\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.9 - Nova - Compute Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1400,70 +1400,70 @@ Steps to install Nova - Compute Service\n\n\
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY '$NOVA_DBPASS'"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY '$NOVA_DBPASS'"
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Creating nova database..." 4 120 ; sleep $speed
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain default --password $NOVA_PASS nova 2>&1 | \
 				dialog 	--title " Creating the nova user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project service --user nova admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the nova user and service project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name nova --description "OpenStack Compute" compute 2>&1 | \
 				dialog 	--title " Creating the nova service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne compute public http://controller:8774/v2/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Create the Nova service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne compute internal http://controller:8774/v2/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Create the Nova service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne compute admin http://controller:8774/v2/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Create the Nova service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient 2>&1 | \
 				dialog 	--title " Installing the Nova packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/nova/nova.conf $repo/$(hostname)/nova.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/nova/nova.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/nova/nova.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/nova/nova.conf 40 120
 
 				pw_update /etc/nova/nova.conf
 
 				su -s /bin/sh -c "nova-manage db sync" nova 2>&1 | \
 				dialog 	--title " Populating the Nova service database " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( service nova-api restart && \
@@ -1473,13 +1473,13 @@ Steps to install Nova - Compute Service\n\n\
 				service nova-conductor restart && \
 				service nova-novncproxy restart ) 2>&1 | \
 				dialog 	--title " Restarting nova services" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/nova/nova.sqlite
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Nova - Compute Service setup completed." 5 120
   				
 				restart_apache2 > /dev/null 2>&1
@@ -1508,7 +1508,7 @@ Steps to install Nova - Compute Service\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.10 - Neutron - Networking Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1542,53 +1542,53 @@ Steps to install Neutron - Networking Service\n\n\
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY '$NEUTRON_DBPASS'"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '$NEUTRON_DBPASS'"
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Creating neutron database..." 4 120 ; sleep $speed
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain default --password $NEUTRON_PASS neutron 2>&1 | \
 				dialog 	--title " Creating the neutron user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project service --user neutron admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the neutron user and service project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name neutron --description "OpenStack Networking" network 2>&1 | \
 				dialog 	--title " Creating the neutron service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne network public http://controller:9696 2>&1 | \
 				dialog 	--title " Create the Nova service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne network internal http://controller:9696 2>&1 | \
 				dialog 	--title " Create the Nova service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne network admin http://controller:9696 2>&1 | \
 				dialog 	--title " Create the Nova service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install neutron-server neutron-plugin-ml2 neutron-plugin-linuxbridge-agent \
 				neutron-l3-agent neutron-dhcp-agent neutron-metadata-agent python-neutronclient 2>&1 | \
 				dialog 	--title " Installing the Neutron packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( wget -O /etc/neutron/neutron.conf $repo/$(hostname)/neutron.conf && \
@@ -1599,49 +1599,49 @@ Steps to install Neutron - Networking Service\n\n\
 				wget -O /etc/neutron/dnsmasq-neutron.conf $repo/$(hostname)/dnsmasq-neutron.conf && \
 				wget -O /etc/neutron/metadata_agent.ini $repo/$(hostname)/metadata_agent.ini ) 2>&1 | \
 				dialog 	--title " Downloading preconfigured neutron configuration files " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/neutron/neutron.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/neutron.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/neutron/plugins/ml2/ml2_conf.ini file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/plugins/ml2/ml2_conf.ini 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/neutron/plugins/ml2/linuxbridge_agent.ini file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/plugins/ml2/linuxbridge_agent.ini 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/neutron/l3_agent.ini file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/l3_agent.ini 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/neutron/dhcp_agent.ini file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/dhcp_agent.ini 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/neutron/dnsmasq-neutron.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/dnsmasq-neutron.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new  /etc/neutron/metadata_agent.ini file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox  /etc/neutron/metadata_agent.ini 40 120
 
 				pw_update /etc/neutron/neutron.conf
@@ -1654,7 +1654,7 @@ Steps to install Neutron - Networking Service\n\n\
 
 				su -s /bin/sh -c "neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head" neutron 2>&1 | \
 				dialog 	--title " Populating the Neutron service database " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( service nova-api restart && \
@@ -1664,13 +1664,13 @@ Steps to install Neutron - Networking Service\n\n\
 				service neutron-metadata-agent restart && \
 				service neutron-l3-agent restart ) 2>&1 | \
 				dialog 	--title " Restarting Neutron services" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/neutron/neutron.sqlite
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Neutron - Networking Service setup completed." 5 120
 
 				restart_apache2 > /dev/null 2>&1
@@ -1699,7 +1699,7 @@ Steps to install Neutron - Networking Service\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.11 - Create virtual networks, security group rules and adding public key " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1727,18 +1727,18 @@ Steps to create virtual networks\n\n\
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron net-create public --shared --provider:physical_network public --provider:network_type flat 2>&1 | \
 				dialog 	--title " Creating the public network " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron subnet-create public 9.100.16.0/24 --name public --allocation-pool \
 				start=9.100.16.10,end=9.100.16.200 --dns-nameserver 8.8.4.4 --gateway 9.100.16.1 2>&1 | \
 				dialog 	--title " Create a subnet on the public network " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				. $rootpath/demo-openrc.sh
@@ -1746,17 +1746,17 @@ Steps to create virtual networks\n\n\
 
 				. $rootpath/demo-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the demo-openrc.sh file to to gain access to Demo Project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron net-create private 2>&1 | \
 				dialog 	--title " Creating private project network " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron subnet-create private 172.16.1.0/24 --name private --dns-nameserver 8.8.4.4 --gateway 172.16.1.1 2>&1 | \
 				dialog 	--title " Create a subnet on the private project network " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				. $rootpath/admin-openrc.sh
@@ -1764,12 +1764,12 @@ Steps to create virtual networks\n\n\
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron net-update public --router:external 2>&1 | \
 				dialog 	--title " Adding the router: external option to the public provider network " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				. $rootpath/demo-openrc.sh
@@ -1777,42 +1777,42 @@ Steps to create virtual networks\n\n\
 
 				. $rootpath/demo-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the demo-openrc.sh file to to gain access to Demo Project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron router-create router 2>&1 | \
 				dialog 	--title " Creating virtual router to connect private project networks to public provider networks " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron router-interface-add router private 2>&1 | \
 				dialog 	--title " Adding the private network subnet as an interface on the router " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				neutron router-gateway-set router public 2>&1 | \
 				dialog 	--title " Setting a gateway on the public network on the router " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0 && \
 				nova secgroup-add-rule default tcp 1 65535 0.0.0.0/0 ) 2>&1 | \
 				dialog 	--title " Adding security group rules for allowing all ports and ICMP requests " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 		
 				nova keypair-add --pub-key .ssh/id_rsa.pub mykey 2>&1 | \
 				dialog 	--title " Adding existing public key" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 		
 				nova keypair-list 2>&1 | \
 				dialog 	--title " Verifying addition of the key pair" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Public, private project network, security group rules and public key are created. " 5 120
 
 				restart_apache2 > /dev/null 2>&1
@@ -1841,7 +1841,7 @@ Steps to create virtual networks\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.12 - Horizon - OpenStack Dashboard " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1869,28 +1869,28 @@ Steps to install Horizon - OpenStack Dashboard\n\n\
 				(apt-get -y install openstack-dashboard && sleep 5 && \
 				apt-get -y remove --auto-remove openstack-dashboard-ubuntu-theme ) 2>&1 | \
 				dialog 	--title " Installing the Horizon packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/openstack-dashboard/local_settings.py $repo/$(hostname)/local_settings.py 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/openstack-dashboard/local_settings.py file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/openstack-dashboard/local_settings.py file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/openstack-dashboard/local_settings.py 40 120
 
 				service apache2 reload 2>&1 | \
 				dialog 	--title " Reloading the web server configuration " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--colors \
 						--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "\n\
 		Horizon - Dashboard Service setup completed. \n\n\
 		You can access the dashboard using a web browser at ${info}http://controller/horizon${clear}\n\n\
@@ -1925,7 +1925,7 @@ Steps to install Horizon - OpenStack Dashboard\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.13 - Cinder - Block Storage Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -1959,103 +1959,103 @@ Steps to install Cinder - Block Storage Service\n\n\
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'localhost' IDENTIFIED BY '$CINDER_DBPASS'"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY '$CINDER_DBPASS'"
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Creating cinder database..." 4 120 ; sleep $speed
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --password $CINDER_PASS cinder 2>&1 | \
 				dialog 	--title " Creating the cinder user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project service --user cinder admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the cinder user and service project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name cinder --description "OpenStack Block Storage" volume 2>&1 | \
 				dialog 	--title " Creating the cinder service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name cinderv2 --description "OpenStack Block Storage" volumev2 2>&1 | \
 				dialog 	--title " Creating the cinder service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne volume public http://controller:8776/v1/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne volume internal http://controller:8776/v1/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne volume admin http://controller:8776/v1/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne volumev2 public http://controller:8776/v2/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne volumev2 internal http://controller:8776/v2/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne volumev2 admin http://controller:8776/v2/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install cinder-api cinder-scheduler python-cinderclient 2>&1 | \
 				dialog 	--title " Installing the Cinder packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/cinder/cinder.conf $repo/$(hostname)/cinder.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/cinder/cinder.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review new /etc/cinder/cinder.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/cinder/cinder.conf 40 120
 
 				pw_update /etc/cinder/cinder.conf
 
 				su -s /bin/sh -c "cinder-manage db sync" cinder 2>&1 | \
 				dialog 	--title " Populating the Block Storage service database " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( service nova-api restart && \
 				service cinder-scheduler restart && \
 				service cinder-api restart ) 2>&1 | \
 				dialog 	--title " Restarting cinder and related services " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/cinder/cinder.sqlite
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Cinder - Block Storage setup completed." 5 120
 				
 				restart_apache2 > /dev/null 2>&1
@@ -2084,7 +2084,7 @@ Steps to install Cinder - Block Storage Service\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.14 - Swift - Object Storage Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2113,72 +2113,72 @@ Steps to install Swift - Object Storage Service\n\n\
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain default --password $SWIFT_PASS swift 2>&1 | \
 				dialog 	--title " Creating the swift user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project service --user swift admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the swift user and service project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name swift --description "OpenStack Object Storage" object-store 2>&1 | \
 				dialog 	--title " Creating the swift service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne object-store public http://controller:8080/v1/AUTH_%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Create the Object Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne object-store internal http://controller:8080/v1/AUTH_%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Create the Object Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne object-store admin http://controller:8080/v1 2>&1 | \
 				dialog 	--title " Create the Object Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install swift swift-proxy python-swiftclient \
 				python-keystoneclient python-keystonemiddleware memcached 2>&1 | \
 				dialog 	--title " Installing the Swift packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				mkdir /etc/swift
 
 				wget -O /etc/swift/proxy-server.conf $repo/$(hostname)/proxy-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/proxy-server.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/swift/swift.conf $repo/$(hostname)/swift.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/swift.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/swift/proxy-server.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/swift/proxy-server.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/swift/swift.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/swift/swift.conf 40 120
 
 				pw_update /etc/swift/proxy-server.conf
@@ -2194,7 +2194,7 @@ Steps to install Swift - Object Storage Service\n\n\
 				swift-ring-builder account.builder && \
 				swift-ring-builder account.builder rebalance ) 2>&1 | \
 				dialog 	--title " Creating swift account initial ring " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 
@@ -2206,7 +2206,7 @@ Steps to install Swift - Object Storage Service\n\n\
 				swift-ring-builder container.builder && \
 				swift-ring-builder container.builder rebalance ) 2>&1 | \
 				dialog 	--title " Creating swift container initial ring " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 
@@ -2218,7 +2218,7 @@ Steps to install Swift - Object Storage Service\n\n\
 				swift-ring-builder object.builder && \
 				swift-ring-builder object.builder rebalance ) 2>&1 | \
 				dialog 	--title " Creating swift object initial ring " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				chown -R root:swift /etc/swift
@@ -2226,11 +2226,11 @@ Steps to install Swift - Object Storage Service\n\n\
 				(/etc/init.d/memcached restart && service apache2 restart &&  \
 				/etc/init.d/swift-proxy restart ) 2>&1 | \
 				dialog 	--title " Restarting swift and related services " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Swift - Object Storage setup completed." 5 120
 				cd
    	
@@ -2260,7 +2260,7 @@ Steps to install Swift - Object Storage Service\n\n\
 		$DIALOG --colors \
 				--clear \
 				--title " 2.15 - Heat - Orchestration Service " \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2296,133 +2296,133 @@ Steps to install Heat - Orchestration Service\n\n\
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'localhost' IDENTIFIED BY '$HEAT_DBPASS'"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'%' IDENTIFIED BY '$HEAT_DBPASS'"
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Creating heat database..." 4 120 ; sleep $speed
 
 				. $rootpath/admin-openrc.sh 2>&1 | \
 				dialog 	--title " Loading the admin-openrc.sh file to to gain access to admin-only CLI commands " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack token issue 2>&1 | \
 				dialog 	--title " Requesting an authentication token for admin user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain default --password $HEAT_PASS heat 2>&1 | \
 				dialog 	--title " Creating the heat user " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project service --user heat admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the heat user and service project " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name heat --description "Orchestration" orchestration 2>&1 | \
 				dialog 	--title " Creating the heat service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack service create --name heat-cfn --description "Orchestration" cloudformation 2>&1 | \
 				dialog 	--title " Creating the heat service entity " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne orchestration public http://controller:8004/v1/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne orchestration internal http://controller:8004/v1/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne orchestration admin http://controller:8004/v1/%\(tenant_id\)s 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne cloudformation public http://controller:8000/v1 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne cloudformation internal http://controller:8000/v1 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne cloudformation admin http://controller:8000/v1 2>&1 | \
 				dialog 	--title " Creating the Block Storage service API endpoints " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack domain create --description "Stack projects and users" heat 2>&1 | \
 				dialog 	--title " Creating the heat domain that contains projects and users for stacks " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack user create --domain heat --password $HEAT_DOMAIN_PASS heat_domain_admin 2>&1 | \
 				dialog 	--title " Creating the heat_domain_admin user to manage projects and users in the heat domain " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --domain heat --user heat_domain_admin admin 2>&1 | \
 				dialog 	--title " Adding the admin role to the heat_domain_admin user in the heat domain  " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role create heat_stack_owner 2>&1 | \
 				dialog 	--title " Creating the heat_stack_owner role " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role add --project demo --user demo heat_stack_owner 2>&1 | \
 				dialog 	--title " Adding the heat_stack_owner role to the demo project and user  " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				openstack role create heat_stack_user 2>&1 | \
 				dialog 	--title " Creating the heat_stack_user role " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install heat-api heat-api-cfn heat-engine python-heatclient 2>&1 | \
 				dialog 	--title " Installing the Heat packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/heat/heat.conf $repo/$(hostname)/heat.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/heat/heat.conf file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/heat/heat.conf file." \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/heat/heat.conf 40 120
 
 				pw_update /etc/heat/heat.conf
 
 				su -s /bin/sh -c "heat-manage db_sync" heat 2>&1 | \
 				dialog 	--title " Populating the Orchestration Service database " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( service heat-api restart && \
 				service heat-api-cfn restart && \
 				service heat-engine restart ) 2>&1 | \
 				dialog 	--title " Restarting heat and related services " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/heat/heat.sqlite
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Heat - Orchestration Service setup completed." 5 120
     
 				restart_apache2 > /dev/null 2>&1
@@ -2448,7 +2448,7 @@ Steps to install Heat - Orchestration Service\n\n\
 
 		$DIALOG --colors \
 				--title " 3.0 - Compute Node Installation " --clear \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2469,11 +2469,11 @@ Steps to install Compute Node\n\n\
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
 				dialog 	--title " Synchronize passwords from controller node. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Passwords file copied to /root/passwords" 5 120
 				3.1 ;;
   			1)
@@ -2496,7 +2496,7 @@ Steps to install Compute Node\n\n\
 
 		$DIALOG --colors \
 				--title " 3.1 - Nova - Compute Service " --clear \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2514,43 +2514,43 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 
 				apt-get -y install nova-compute sysfsutils 2>&1 | \
 				dialog 	--title " Installing the necessary Nova packages. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/nova/nova.conf $repo/$(hostname)/nova.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/nova/nova.conf config file. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/nova/nova-compute.conf $repo/$(hostname)/nova-compute.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/nova/nova-compute.conf config file. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 		
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/nova/nova.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/nova/nova.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/nova/nova-compute.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/nova/nova-compute.conf 40 120
 
 				pw_update /etc/nova/nova.conf
 
 				service nova-compute restart 2>&1 | \
 				dialog 	--title " Restarting nova compute service" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/nova/nova.sqlite
 
 				dialog 	--colors \
 						--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Nova - Compute Service setup completed on ${info}$(hostname)${clear} node." 5 120
 
     			3.2 ;;
@@ -2574,7 +2574,7 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 
 		$DIALOG --colors \
 				--title " 3.2 - Neutron - Networking Service " --clear \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2592,29 +2592,29 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 
 				apt-get -y install neutron-plugin-linuxbridge-agent 2>&1 | \
 				dialog 	--title " Installing the necessary Neutron packages. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/neutron/neutron.conf $repo/$(hostname)/neutron.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/neutron/neutron.conf config file. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/neutron/plugins/ml2/linuxbridge_agent.ini $repo/$(hostname)/linuxbridge_agent.ini 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/neutron/plugins/ml2/linuxbridge_agent.ini config file. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 		
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/neutron/neutron.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/neutron.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/neutron/plugins/ml2/linuxbridge_agent.ini " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/neutron/plugins/ml2/linuxbridge_agent.ini 40 120
  
 				pw_update /etc/neutron/neutron.conf
@@ -2622,19 +2622,19 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 
 				service nova-compute restart 2>&1 | \
 				dialog 	--title " Restarting nova compute service" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 		
 				service neutron-plugin-linuxbridge-agent restart 2>&1 | \
 				dialog 	--title " Restarting Neutron Linuxbridge Agent service" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/nova/nova.sqlite
 
 				dialog 	--colors \
 						--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Neutron - Networking Service setup completed on ${info}$(hostname)${clear} node." 5 120
 
     			reboot_now ;;
@@ -2658,7 +2658,7 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 
 		$DIALOG --colors \
 				--title " 4.0 - Block Storage Node Installation " --clear \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2688,62 +2688,62 @@ Steps to install Block Storage Node\n\n\
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
 
 				dialog 	--title " Downloading passwords file from controller node " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Passwords file copied to /root/passwords" 5 120
 				
 				apt-get -y install lvm2 2>&1 | \
 				dialog 	--title " Installing lvm2 supporting utility package " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( pvcreate /dev/sdb && vgcreate cinder-volumes /dev/sdb ) 2>&1 | \
 				dialog 	--title " Creating the LVM physical volume and volume group " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/lvm/lvm.conf $repo/$(hostname)/lvm.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/lvm/lvm.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 		
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/lvm/lvm.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/lvm/lvm.conf 40 120
 
 				apt-get -y install cinder-volume python-mysqldb 2>&1 | \
 				dialog 	--title " Installing cinder-volume component " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/cinder/cinder.conf $repo/$(hostname)/cinder.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/cinder/cinder.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/cinder/cinder.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/cinder/cinder.conf 40 120
 
 				pw_update /etc/cinder/cinder.conf
 
 				( service tgt restart && service cinder-volume restart ) 2>&1 | \
 				dialog 	--title " Restarting Block Storage volume service " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				rm -f /var/lib/cinder/cinder.sqlite
 
 				dialog 	--colors \
 						--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  " Cinder - Block Storage Service setup completed on ${info}$(hostname)${clear} node." 5 120
 						
 				reboot_now ;;
@@ -2768,7 +2768,7 @@ Steps to install Block Storage Node\n\n\
 
 		$DIALOG --colors \
 				--title " 5.0 - Object Storage Node Installation " --clear \
-				--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
         		--yesno "\n\
@@ -2793,29 +2793,29 @@ Steps to install Object Storage Node\n\n\
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
 				dialog 	--title " Downloading passwords file from controller node " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Passwords file copied to /root/passwords" 5 120
 
 				apt-get -y install xfsprogs rsync 2>&1 | \
 				dialog 	--title " Installing xfs supporting utility packages " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( mkfs.xfs /dev/sdb && mkfs.xfs /dev/sdc ) 2>&1 | \
 				dialog 	--title " Formatting the /dev/sdb and /dev/sdc devices as XFS " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				( mkdir -p /srv/node/sdb && mkdir -p /srv/node/sdc ) 2>&1 | \
 				dialog 	--title " Creating the mount point directory structure " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox " Editing fstab to automount partitions at startup " 4 120 ; sleep $speed
 
 				echo "/dev/sdb /srv/node/sdb xfs noatime,nodiratime,nobarrier,logbufs=8 0 2" >> /etc/fstab
@@ -2823,75 +2823,75 @@ Steps to install Object Storage Node\n\n\
 
 				( mount /srv/node/sdb && mount /srv/node/sdc ) 2>&1 | \
 				dialog 	--title " Mounting the devices " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/rsyncd.conf $repo/$(hostname)/rsyncd.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/rsyncd.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/default/rsync $repo/$(hostname)/rsync	 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/default/rsync config file. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/rsyncd.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/rsyncd.conf 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/default/rsync " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/default/rsync 40 120
 
 				service rsync start	 2>&1 | \
 				dialog 	--title " Starting rync service. " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				apt-get -y install swift swift-account swift-container swift-object	 2>&1 | \
 				dialog 	--title " Installing swift components " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/swift/object-server.conf $repo/$(hostname)/object-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/object-server.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/swift/container-server.conf $repo/$(hostname)/container-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/container-server.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/swift/account-server.conf $repo/$(hostname)/account-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/account-server.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/swift/object-server.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/default/rsync 40 120						
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/swift/container-server.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/default/rsync 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/swift/account-server.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/default/rsync 40 120				
 						
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Setting folder permissions" 4 120 ; sleep $speed
 
 				chown -R swift:swift /srv/node
@@ -2900,33 +2900,33 @@ Steps to install Object Storage Node\n\n\
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/etc/swift/account.ring.gz /etc/swift/account.ring.gz 2>&1 | \
 				dialog 	--title " Downloading account ring from controller node " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/etc/swift/container.ring.gz /etc/swift/container.ring.gz 2>&1 | \
 				dialog 	--title " Downloading container ring from controller node " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/etc/swift/object.ring.gz /etc/swift/object.ring.gz 2>&1 | \
 				dialog 	--title " Downloading object ring from controller node " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				wget -O /etc/swift/swift.conf $repo/$(hostname)/swift.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/swift.conf config file " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/swift/swift.conf " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--textbox /etc/swift/swift.conf 40 120
 
 				pw_update /etc/swift/swift.conf
 				
-				dialog 	--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+				dialog 	--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--infobox "Setting folder permissions" 4 120 ; sleep $speed
 
 				chown -R root:swift /etc/swift
@@ -2934,12 +2934,12 @@ Steps to install Object Storage Node\n\n\
 
 				swift-init all start 2>&1 | \
 				dialog 	--title " Starting swift services " \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--progressbox 40 120; sleep $speed
 
 				dialog 	--colors \
 						--ok-label "Continue" \
-						--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+						--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 						--msgbox  "Swift - Object Storage Service setup completed on ${info}$(hostname)${clear} node." 5 120
 
 				reboot_now ;;
@@ -2989,8 +2989,8 @@ ${bold}1 - Prerequisites${clear} step selected to complete the node selection.\n
 fi
 
 $DIALOG	--colors \
-		--clear --title " OpenStack Installer - Main Menu " \
-		--backtitle "IBM - OpenStack Lab Installer for Cloud Advisors" \
+		--clear --title " OpenStackLab Installer - Main Menu " \
+		--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
         --default-item "$defaultitem" \
         --ok-label "Continue" \
         --cancel-label "Exit" \
@@ -3046,7 +3046,7 @@ esac
 # welcome ################################################################################
 
 dialog 	--title " W E L C O M E " --clear \
-		--backtitle "OpenStack Lab for Cloud Advisors" \
+		--backtitle "OpenStackLab for Cloud Advisors" \
 		--yes-label "Accept" \
 		--no-label "Exit" \
         --yesno "\n\
