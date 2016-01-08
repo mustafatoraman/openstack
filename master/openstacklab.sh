@@ -495,8 +495,13 @@ Steps to install OpenStack Packages\n\n\
 			dialog 	--title " Enabling the OpenStack repository " \
 					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
+			
+			unset UCF_FORCE_CONFFOLD
+			export UCF_FORCE_CONFFNEW=YES
+			ucf --purge /boot/grub/menu.lst
 
-			( apt-get -y update && apt-get -y dist-upgrade ) 2>&1 | \
+			export DEBIAN_FRONTEND=noninteractive
+			( apt-get -y update && apt-get -o Dpkg::Options::="--force-confnew" --force-yes -fuy dist-upgrade ) 2>&1 | \
 			dialog 	--title " Upgrading the packages on host " \
 					--backtitle "IBM - OpenStackLab Installer for Cloud Advisors" \
 					--progressbox 40 120; sleep $speed
