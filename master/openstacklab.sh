@@ -2,7 +2,7 @@
 # repo ###################################################################################
 
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
-version="1.3"
+version="v1.3"
 
 # temp/trap ##############################################################################
 
@@ -3052,7 +3052,7 @@ esac
 # welcome ################################################################################
 
 dialog 	--title " W E L C O M E " --clear \
-		--backtitle "OpenStackLab for Cloud Advisors - ${version} - ${version}" \
+		--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 		--yes-label "Accept" \
 		--no-label "Exit" \
         --yesno "\n\
