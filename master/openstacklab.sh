@@ -1850,7 +1850,7 @@ Steps to create virtual networks\n\n\
 				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
-        		--yesno "\n\n
+        		--yesno "\n\
 The OpenStack Dashboard, also known as horizon is a web interface that enables cloud \
 administrators and users to manage various OpenStack resources and services.\n\n\
 The Dashboard enables web-based interactions with the OpenStack Compute cloud controller \
