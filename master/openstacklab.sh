@@ -2,7 +2,7 @@
 # repo ###################################################################################
 
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
-version="v1.3"
+version="v1.4"
 
 # temp/trap ##############################################################################
 
@@ -1850,7 +1850,7 @@ Steps to create virtual networks\n\n\
 				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 				--yes-label "Continue" \
 				--no-label "Exit" \
-        		--yesno "\n\
+        		--yesno "\n\h
 The OpenStack Dashboard, also known as horizon is a web interface that enables cloud \
 administrators and users to manage various OpenStack resources and services.\n\n\
 The Dashboard enables web-based interactions with the OpenStack Compute cloud controller \
@@ -2336,32 +2336,32 @@ Steps to install Heat - Orchestration Service\n\n\
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne orchestration public http://controller:8004/v1/%\(tenant_id\)s 2>&1 | \
-				dialog 	--title " Creating the Block Storage service API endpoints " \
+				dialog 	--title " Creating the Orchestration service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne orchestration internal http://controller:8004/v1/%\(tenant_id\)s 2>&1 | \
-				dialog 	--title " Creating the Block Storage service API endpoints " \
+				dialog 	--title " Creating the Orchestration service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne orchestration admin http://controller:8004/v1/%\(tenant_id\)s 2>&1 | \
-				dialog 	--title " Creating the Block Storage service API endpoints " \
+				dialog 	--title " Creating the Orchestration service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne cloudformation public http://controller:8000/v1 2>&1 | \
-				dialog 	--title " Creating the Block Storage service API endpoints " \
+				dialog 	--title " Creating the Orchestration service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne cloudformation internal http://controller:8000/v1 2>&1 | \
-				dialog 	--title " Creating the Block Storage service API endpoints " \
+				dialog 	--title " Creating the Orchestration service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne cloudformation admin http://controller:8000/v1 2>&1 | \
-				dialog 	--title " Creating the Block Storage service API endpoints " \
+				dialog 	--title " Creating the Orchestration service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
