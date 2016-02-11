@@ -8,7 +8,7 @@
 # ----------------------------------------------------------------------------------------
 version="v1.4"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
-
+export NCURSES_NO_UTF8_ACS=1
 # temp/trap ------------------------------------------------------------------------------
 
 DIALOG=${DIALOG=dialog}
