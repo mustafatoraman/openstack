@@ -235,6 +235,19 @@ check_internet_access () {
 	fi
 }
 
+# step_failed -----------------------------------------------------------------------------
+
+step_failed () {
+
+		dialog 	--colors \
+				--title " Step Failed! " \
+				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+				--infobox " Step failed or unable to verify changes. Please check your internet connectivity, update script and restart the same step from menu. " 4 120 ; sleep 5
+		clear
+		exit 0
+	fi
+}
+
 # 1.1 ------------------------------------------------------------------------------------
 
 
@@ -379,7 +392,9 @@ ${bold}/etc/hosts${clear}\n" 12 120
 			dialog 	--title " Downloading preconfigured /etc/network/interfaces " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-
+			
+			if ! grep -q "172.16" /etc/network/interfaces; then step_failed; fi
+			
 			wget -O /etc/hostname $repo/$(hostname)/hostname 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/hostname " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
