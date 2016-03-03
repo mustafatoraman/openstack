@@ -246,7 +246,6 @@ step_failed () {
 				--infobox "Step failed or unable to verify changes. Please check your internet connectivity, update script and restart the same step from menu." 4 120 ; sleep 5
 		clear
 		exit 0
-	fi
 }
 
 # 1.1 ------------------------------------------------------------------------------------
