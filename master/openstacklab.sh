@@ -243,8 +243,7 @@ step_failed () {
 				--title " Step Failed! " \
 				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 				--ok-label "Continue" \
-				--infobox "Step failed or unable to verify changes. Please check your internet connectivity, update script and restart the same step from menu." 4 120 ; sleep 5
-		clear
+				--msgbox "Step failed or unable to verify changes.\n\nPlease check your internet connectivity, update script and restart the same step from menu." 6 120 ; sleep 5
 		exit 0
 }
 
@@ -400,11 +399,15 @@ ${bold}/etc/hosts${clear}\n" 12 120
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
 
+			if grep -q "clone" /etc/hostname; then step_failed; fi
+
 			wget -O /etc/hosts $repo/$(hostname)/hosts 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/hosts " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-		
+
+			if ! grep -q "controller" /etc/hosts; then step_failed; fi		
+
 			dialog 	--ok-label "Continue" \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--msgbox  "Node Networking Setup completed. " 5 120
