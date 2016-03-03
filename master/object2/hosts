@@ -10,6 +10,6 @@ ff02::2 ip6-allrouters
 10.0.0.21       compute2
 10.0.0.30       object1
 10.0.0.40       block1
-10.0.0.41       block1
+10.0.0.41       block2
 
 23.235.46.133   raw.githubusercontent.com
