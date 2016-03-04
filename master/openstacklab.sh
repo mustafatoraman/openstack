@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------------------------
 # Last updated 28 Jan 2016
 # ----------------------------------------------------------------------------------------
-version="v1.5.4"
+version="v1.5.5"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 export NCURSES_NO_UTF8_ACS=1
 # temp/trap ------------------------------------------------------------------------------
@@ -2993,7 +2993,7 @@ Steps to install Object Storage Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
-				if ! grep -q "swift" /etc/default/rsync; then step_failed; fi
+				if ! grep -q "true" /etc/default/rsync; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
