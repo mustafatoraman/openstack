@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------------------------
 # Last updated 28 Jan 2016
 # ----------------------------------------------------------------------------------------
-version="v1.4"
+version="v1.5"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 export NCURSES_NO_UTF8_ACS=1
 # temp/trap ------------------------------------------------------------------------------
@@ -464,12 +464,16 @@ Steps to configure NTP service\n\n\
 			dialog 	--title " Installing Chrony packages " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-
+			
+			if ! apt-get -qq install chrony; then step_failed ; fi
+			
 			wget -O /etc/chrony/chrony.conf $repo/$(hostname)/chrony.conf 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/chrony/chrony.conf " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-
+					
+			if ! grep -q "server" /etc/chrony/chrony.conf; then step_failed; fi
+			
 			dialog  --clear\
 					--exit-label Continue \
 					--title " Review /etc/chrony/chrony.conf " \
@@ -519,6 +523,8 @@ Steps to install OpenStack Packages\n\n\
 			dialog 	--title " Enabling the OpenStack repository " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
+
+			if ! apt-get -qq install software-properties-common; then step_failed ; fi
 			
 			unset UCF_FORCE_CONFFOLD
 			export UCF_FORCE_CONFFNEW=YES
@@ -534,6 +540,8 @@ Steps to install OpenStack Packages\n\n\
 			dialog 	--title " Installing the OpenStack client and related packages " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
+
+			if ! apt-get -qq install python-openstackclient arptables conntrack; then step_failed ; fi
 
 			dialog 	--ok-label "Continue" \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -740,10 +748,14 @@ Steps to install SQL Database\n\n\
 				echo mariadb-server-5.5 mysql-server/root_password_again password $ROOT_DB_PASS | debconf-set-selections
 				apt-get -y install mariadb-server python-pymysql expect  > /dev/null 2>&1
 
+				if ! apt-get -qq install mariadb-server python-pymysql expect; then step_failed ; fi
+
 				wget -O /etc/mysql/conf.d/mysqld_openstack.cnf $repo/$(hostname)/mysqld_openstack.cnf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/mysql/conf.d/mysqld_openstack.cnf " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "10.0.0.10" /etc/mysql/conf.d/mysqld_openstack.cnf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -757,10 +769,14 @@ Steps to install SQL Database\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! pgrep mysql >/dev/null 2>&1; then echo "yes"; fi
+
 				(wget -O /root/dbsec.sh $repo/$(hostname)/dbsec.sh && sh dbsec.sh) 2>&1 | \
 				dialog 	--title " Securing the database service " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+						
+				if ! grep -q "bash" /root/dbsec.sh; then step_failed; fi
 
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -809,6 +825,8 @@ Steps to install RabbitMQ Message Queueu\n\n\
 				dialog 	--title " Installing the RabbitMQ packages " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! apt-get -qq install rabbitmq-server; then step_failed ; fi
 
 				rabbitmqctl add_user openstack $RABBIT_PASS 2>&1 | \
 				dialog 	--title " Adding the openstack user " \
@@ -882,10 +900,14 @@ Steps to install Keystone Identity Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install keystone apache2 libapache2-mod-wsgi memcached python-memcache; then step_failed ; fi
+
 				wget -O /etc/keystone/keystone.conf $repo/$(hostname)/keystone.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/keystone/keystone.conf " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/keystone/keystone.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -905,6 +927,8 @@ Steps to install Keystone Identity Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "controller" /etc/apache2/apache2.conf; then step_failed; fi
+
 				ln -s /etc/apache2/sites-available/wsgi-keystone.conf /etc/apache2/sites-enabled
 
 				wget -O /etc/apache2/sites-available/wsgi-keystone.conf $repo/$(hostname)/wsgi-keystone.conf 2>&1 | \
@@ -912,10 +936,14 @@ Steps to install Keystone Identity Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "keystone" /etc/apache2/sites-available/wsgi-keystone.conf; then step_failed; fi
+
 				service apache2 restart 2>&1 | \
 				dialog 	--title " Restarting Apache HTTP server " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep apache >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/keystone/keystone.db
 
@@ -1172,10 +1200,14 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "controller" /root/admin-openrc.sh; then step_failed; fi
+
 				wget -O /root/demo-openrc.sh $repo/$(hostname)/demo-openrc.sh 2>&1 | \
 				dialog 	--title " Downloading preconfigured /root/demo-openrc.sh " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+						
+				if ! grep -q "controller" /root/demo-openrc.sh; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -1316,15 +1348,21 @@ Steps to install Glance - Image Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install glance python-glanceclient; then step_failed ; fi
+
 				wget -O /etc/glance/glance-api.conf $repo/$(hostname)/glance-api.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/glance/glance-api.conf file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "controller" /etc/glance/glance-api.conf; then step_failed; fi
+
 				wget -O /etc/glance/glance-registry.conf $repo/$(hostname)/glance-registry.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/glance/glance-registry.conf file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/glance/glance-registry.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -1350,6 +1388,9 @@ Steps to install Glance - Image Service\n\n\
 				dialog 	--title " Restarting glance-registry and glance-api services" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep glance-registry >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep glance-api >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/glance/glance.sqlite
 
@@ -1477,10 +1518,14 @@ Steps to install Nova - Compute Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install nova-api nova-cert nova-conductor nova-consoleauth nova-novncproxy nova-scheduler python-novaclient; then step_failed ; fi
+
 				wget -O /etc/nova/nova.conf $repo/$(hostname)/nova.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/nova/nova.conf file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/nova/nova.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -1505,6 +1550,11 @@ Steps to install Nova - Compute Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! pgrep nova-api >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep nova-cert >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep nova-scheduler >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep nova-novncproxy >/dev/null 2>&1; then step_failed; fi
+				
 				rm -f /var/lib/nova/nova.sqlite
 
 				dialog 	--ok-label "Continue" \
@@ -1620,6 +1670,8 @@ Steps to install Neutron - Networking Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install neutron-server neutron-plugin-ml2 neutron-plugin-linuxbridge-agent; then step_failed ; fi
+
 				( wget -O /etc/neutron/neutron.conf $repo/$(hostname)/neutron.conf && \
 				wget -O /etc/neutron/plugins/ml2/ml2_conf.ini $repo/$(hostname)/ml2_conf.ini && \
 				wget -O /etc/neutron/plugins/ml2/linuxbridge_agent.ini $repo/$(hostname)/linuxbridge_agent.ini && \
@@ -1630,6 +1682,14 @@ Steps to install Neutron - Networking Service\n\n\
 				dialog 	--title " Downloading preconfigured neutron configuration files " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/neutron/neutron.conf; then step_failed; fi
+				if ! grep -q "vxlan" /etc/neutron/plugins/ml2/ml2_conf.ini; then step_failed; fi
+				if ! grep -q "linux_bridge" /etc/neutron/plugins/ml2/linuxbridge_agent.ini; then step_failed; fi
+				if ! grep -q "BridgeInterfaceDriver" /etc/neutron/l3_agent.ini; then step_failed; fi
+				if ! grep -q "BridgeInterfaceDriver" /etc/neutron/dhcp_agent.ini; then step_failed; fi
+				if ! grep -q "dhcp" /etc/neutron/dnsmasq-neutron.conf; then step_failed; fi
+				if ! grep -q "controller" /etc/neutron/metadata_agent.ini; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -1695,6 +1755,8 @@ Steps to install Neutron - Networking Service\n\n\
 				dialog 	--title " Restarting Neutron services" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep neutron-server >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/neutron/neutron.sqlite
 
@@ -1901,10 +1963,14 @@ Steps to install Horizon - OpenStack Dashboard\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install openstack-dashboard; then step_failed ; fi
+
 				wget -O /etc/openstack-dashboard/local_settings.py $repo/$(hostname)/local_settings.py 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/openstack-dashboard/local_settings.py file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "horizon" /etc/openstack-dashboard/local_settings.py; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2056,10 +2122,14 @@ Steps to install Cinder - Block Storage Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install cinder-api cinder-scheduler python-cinderclient; then step_failed ; fi
+
 				wget -O /etc/cinder/cinder.conf $repo/$(hostname)/cinder.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/cinder/cinder.conf file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/cinder/cinder.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2080,6 +2150,9 @@ Steps to install Cinder - Block Storage Service\n\n\
 				dialog 	--title " Restarting cinder and related services " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep nova-api >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep cinder-api >/dev/null 2>&1; then step_failed; fi				
 
 				rm -f /var/lib/cinder/cinder.sqlite
 
@@ -2186,6 +2259,8 @@ Steps to install Swift - Object Storage Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install swift swift-proxy python-swiftclient; then step_failed ; fi
+
 				mkdir /etc/swift
 
 				wget -O /etc/swift/proxy-server.conf $repo/$(hostname)/proxy-server.conf 2>&1 | \
@@ -2193,10 +2268,14 @@ Steps to install Swift - Object Storage Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "controller" /etc/swift/proxy-server.conf; then step_failed; fi
+
 				wget -O /etc/swift/swift.conf $repo/$(hostname)/swift.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/swift.conf file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/swift/swift.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2257,6 +2336,10 @@ Steps to install Swift - Object Storage Service\n\n\
 				dialog 	--title " Restarting swift and related services " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep memcached >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep apache2 >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep swift-proxy >/dev/null 2>&1; then step_failed; fi
 
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -2319,7 +2402,6 @@ Steps to install Heat - Orchestration Service\n\n\
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
-
 
 				mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE heat"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON heat.* TO 'heat'@'localhost' IDENTIFIED BY '$HEAT_DBPASS'"
@@ -2423,10 +2505,14 @@ Steps to install Heat - Orchestration Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install heat-api heat-api-cfn heat-engine python-heatclient; then step_failed ; fi
+
 				wget -O /etc/heat/heat.conf $repo/$(hostname)/heat.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/heat/heat.conf file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/heat/heat.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2447,6 +2533,10 @@ Steps to install Heat - Orchestration Service\n\n\
 				dialog 	--title " Restarting heat and related services " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep heat-api >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep heat-api-cfn >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep heat-engine >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/heat/heat.sqlite
 
@@ -2501,6 +2591,8 @@ Steps to install Compute Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "ADMIN_PASS" /root/passwords; then step_failed; fi
+
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  "Passwords file copied to /root/passwords" 5 120
@@ -2546,16 +2638,22 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install nova-compute sysfsutils; then step_failed ; fi
+
 				wget -O /etc/nova/nova.conf $repo/$(hostname)/nova.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/nova/nova.conf config file. " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "controller" /etc/nova/nova.conf; then step_failed; fi
+
 				wget -O /etc/nova/nova-compute.conf $repo/$(hostname)/nova-compute.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/nova/nova-compute.conf config file. " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-		
+
+				if ! grep -q "libvirt" /etc/nova/nova-compute.conf; then step_failed; fi
+
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/nova/nova.conf " \
@@ -2574,6 +2672,8 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 				dialog 	--title " Restarting nova compute service" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+						
+				if ! pgrep nova-compute >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/nova/nova.sqlite
 
@@ -2624,16 +2724,22 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install neutron-plugin-linuxbridge-agent; then step_failed ; fi
+
 				wget -O /etc/neutron/neutron.conf $repo/$(hostname)/neutron.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/neutron/neutron.conf config file. " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "controller" /etc/neutron/neutron.conf; then step_failed; fi
+
 				wget -O /etc/neutron/plugins/ml2/linuxbridge_agent.ini $repo/$(hostname)/linuxbridge_agent.ini 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/neutron/plugins/ml2/linuxbridge_agent.ini config file. " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-		
+
+				if ! grep -q "linux_bridge" /etc/neutron/plugins/ml2/linuxbridge_agent.ini; then step_failed; fi
+
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/neutron/neutron.conf " \
@@ -2653,6 +2759,8 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 				dialog 	--title " Restarting nova compute service" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep nova-compute >/dev/null 2>&1; then step_failed; fi
 		
 				service neutron-plugin-linuxbridge-agent restart 2>&1 | \
 				dialog 	--title " Restarting Neutron Linuxbridge Agent service" \
@@ -2716,6 +2824,8 @@ Steps to install Block Storage Node\n\n\
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
 
+				if ! grep -q "ADMIN_PASS" /root/passwords; then step_failed; fi
+
 				dialog 	--title " Downloading passwords file from controller node " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
@@ -2729,6 +2839,8 @@ Steps to install Block Storage Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install lvm2; then step_failed ; fi
+
 				( pvcreate /dev/sdb && vgcreate cinder-volumes /dev/sdb ) 2>&1 | \
 				dialog 	--title " Creating the LVM physical volume and volume group " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -2738,6 +2850,8 @@ Steps to install Block Storage Node\n\n\
 				dialog 	--title " Downloading preconfigured /etc/lvm/lvm.conf config file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "sdb" /etc/lvm/lvm.conf; then step_failed; fi
 		
 				dialog  --clear\
 						--exit-label Continue \
@@ -2750,10 +2864,14 @@ Steps to install Block Storage Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install cinder-volume python-mysqldb; then step_failed ; fi
+
 				wget -O /etc/cinder/cinder.conf $repo/$(hostname)/cinder.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/cinder/cinder.conf config file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "controller" /etc/cinder/cinder.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2767,6 +2885,9 @@ Steps to install Block Storage Node\n\n\
 				dialog 	--title " Restarting Block Storage volume service " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! pgrep tgt >/dev/null 2>&1; then step_failed; fi
+				if ! pgrep cinder-volume >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/cinder/cinder.sqlite
 
@@ -2825,6 +2946,8 @@ Steps to install Object Storage Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "ADMIN_PASS" /root/passwords; then step_failed; fi
+
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  "Passwords file copied to /root/passwords" 5 120
@@ -2833,6 +2956,8 @@ Steps to install Object Storage Node\n\n\
 				dialog 	--title " Installing xfs supporting utility packages " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! apt-get -qq install xfsprogs; then step_failed ; fi
 
 				( mkfs.xfs /dev/sdb && mkfs.xfs /dev/sdc ) 2>&1 | \
 				dialog 	--title " Formatting the /dev/sdb and /dev/sdc devices as XFS " \
@@ -2860,10 +2985,14 @@ Steps to install Object Storage Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "swift" /etc/rsyncd.conf; then step_failed; fi
+
 				wget -O /etc/default/rsync $repo/$(hostname)/rsync	 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/default/rsync config file. " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "swift" /etc/default/rsync; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2887,20 +3016,28 @@ Steps to install Object Storage Node\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! apt-get -qq install swift swift-account swift-container swift-object; then step_failed ; fi
+
 				wget -O /etc/swift/object-server.conf $repo/$(hostname)/object-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/object-server.conf config file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "10.0.0" /etc/swift/object-server.conf; then step_failed; fi
 
 				wget -O /etc/swift/container-server.conf $repo/$(hostname)/container-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/container-server.conf config file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				if ! grep -q "10.0.0" /etc/swift/container-server.conf; then step_failed; fi
+
 				wget -O /etc/swift/account-server.conf $repo/$(hostname)/account-server.conf 2>&1 | \
 				dialog 	--title " Downloading preconfigured /etc/swift/account-server.conf config file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "10.0.0" /etc/swift/account-server.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -2946,6 +3083,8 @@ Steps to install Object Storage Node\n\n\
 				dialog 	--title " Downloading preconfigured /etc/swift/swift.conf config file " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "swift_hash_path_suffix" /etc/swift/swift.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
