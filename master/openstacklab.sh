@@ -243,7 +243,7 @@ step_failed () {
 				--title " Step Failed! " \
 				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 				--ok-label "Continue" \
-				--msgbox "Step failed or unable to verify changes.\n\nPlease check your internet connectivity, update script and restart the same step from menu." 6 120 ; sleep 5
+				--msgbox "Step failed or unable to verify changes.\n\nPlease check your internet connectivity, update script and restart the same step from menu." 6 120 
 		exit 0
 }
 
