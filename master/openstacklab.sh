@@ -6,7 +6,7 @@
 # ----------------------------------------------------------------------------------------
 # Last updated 28 Jan 2016
 # ----------------------------------------------------------------------------------------
-version="v1.5.2"
+version="v1.5.3"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 export NCURSES_NO_UTF8_ACS=1
 # temp/trap ------------------------------------------------------------------------------
@@ -2825,12 +2825,11 @@ Steps to install Block Storage Node\n\n\
 				sleep 1
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
-
-				if ! grep -q "ADMIN_PASS" /root/passwords; then step_failed; fi
-
 				dialog 	--title " Downloading passwords file from controller node " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				if ! grep -q "ADMIN_PASS" /root/passwords; then step_failed; fi
 
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
