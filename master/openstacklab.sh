@@ -1394,6 +1394,8 @@ Steps to install Glance - Image Service\n\n\
 
 				rm -f /var/lib/glance/glance.sqlite
 
+				rm -rf cirros* >/dev/null 2>&1
+
 				wget http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img 2>&1 | \
 				dialog 	--title " Download the CirrOS source image "\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -2275,7 +2277,7 @@ Steps to install Swift - Object Storage Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
-				if ! grep -q "controller" /etc/swift/swift.conf; then step_failed; fi
+				if ! grep -q "swift_hash_path_suffix" /etc/swift/swift.conf; then step_failed; fi
 
 				dialog  --clear\
 						--exit-label Continue \
