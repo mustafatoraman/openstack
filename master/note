@@ -1,5 +1,0 @@
-https://apps.na.collabserv.com/meetings/join?id=9528-9862
-
-gunzip -cd windows_server_2012_r2_standard_eval_kvm_20140607.qcow2.gz | 
-glance image-create --property hypervisor_type=hyperv --name "Windows Server 2012 R2 Std Eval" 
---container-format bare --disk-format vhd
