@@ -4,9 +4,9 @@
 # Author: Mustafa Toraman <mtoraman@us.ibm.com>
 # Copyright: IBM Corporation - 2016
 # ----------------------------------------------------------------------------------------
-# Last updated 28 Jan 2016
+# Last updated 17 Mar 2016
 # ----------------------------------------------------------------------------------------
-version="v1.5.6"
+version="v1.5.7"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 export NCURSES_NO_UTF8_ACS=1
 # temp/trap ------------------------------------------------------------------------------
@@ -1827,10 +1827,24 @@ Steps to create virtual networks\n\n\
 				dialog 	--title " Creating the public network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+				
+				sleep 3
+				
+				neutron net-show public 2>&1 | \
+				dialog 	--title " Verifying the public network " \
+						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+						--progressbox 40 120; sleep $speed
 
 				neutron subnet-create public 9.100.16.0/24 --name public --allocation-pool \
 				start=9.100.16.10,end=9.100.16.200 --dns-nameserver 8.8.4.4 --gateway 9.100.16.1 2>&1 | \
 				dialog 	--title " Create a subnet on the public network " \
+						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+						--progressbox 40 120; sleep $speed
+
+				sleep 3
+				
+				neutron subnet-show public 2>&1 | \
+				dialog 	--title " Verifying the subnet on the public network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
@@ -1847,8 +1861,22 @@ Steps to create virtual networks\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				sleep 3
+			
+				neutron net-show private 2>&1 | \
+				dialog 	--title " Verifying the private project network " \
+						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+						--progressbox 40 120; sleep $speed
+
 				neutron subnet-create private 172.16.1.0/24 --name private --dns-nameserver 8.8.4.4 --gateway 172.16.1.1 2>&1 | \
 				dialog 	--title " Create a subnet on the private project network " \
+						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+						--progressbox 40 120; sleep $speed
+				
+				sleep 3
+										
+				neutron subnet-show private 2>&1 | \
+				dialog 	--title " Verifying the subnet on the private network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
@@ -1862,6 +1890,13 @@ Steps to create virtual networks\n\n\
 
 				neutron net-update public --router:external 2>&1 | \
 				dialog 	--title " Adding the router: external option to the public provider network " \
+						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+						--progressbox 40 120; sleep $speed
+				
+				sleep 3						
+				
+				neutron net-external-list  2>&1 | \
+				dialog 	--title " Verifying the list of external networks " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
@@ -1878,15 +1913,26 @@ Steps to create virtual networks\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				sleep 3
+						
+				neutron router-show router  2>&1 | \
+				dialog 	--title " Verifying the router " \
+						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
+						--progressbox 40 120; sleep $speed
+
 				neutron router-interface-add router private 2>&1 | \
 				dialog 	--title " Adding the private network subnet as an interface on the router " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
+				sleep 3
+
 				neutron router-gateway-set router public 2>&1 | \
 				dialog 	--title " Setting a gateway on the public network on the router " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
+
+				sleep 3
 
 				( nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0 && \
 				nova secgroup-add-rule default tcp 1 65535 0.0.0.0/0 ) 2>&1 | \
