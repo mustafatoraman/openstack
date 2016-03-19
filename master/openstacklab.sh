@@ -1753,7 +1753,8 @@ Steps to install Neutron - Networking Service\n\n\
 				service neutron-plugin-linuxbridge-agent restart && \
 				service neutron-dhcp-agent restart && \
 				service neutron-metadata-agent restart && \
-				service neutron-l3-agent restart ) 2>&1 | \
+				service neutron-l3-agent restart && \
+				echo "Please wait until neutron services to sync up..." ) 2>&1 | \
 				dialog 	--title " Restarting Neutron services" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
