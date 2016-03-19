@@ -1757,7 +1757,14 @@ Steps to install Neutron - Networking Service\n\n\
 				dialog 	--title " Restarting Neutron services" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-
+				
+				until cat /var/log/neutron/neutron-metadata-agent.log | grep -m 1 "run outlasted interval"; do : ; done > /dev/null 2>&1
+				until cat /var/log/neutron/neutron-plugin-linuxbridge-agent.log | grep -m 1 "run outlasted interval"; do : ; done > /dev/null 2>&1
+				service neutron-plugin-linuxbridge-agent restart > /dev/null 2>&1
+				service neutron-metadata-agent restart > /dev/null 2>&1
+				until cat /var/log/neutron/dhcp-agent.log | grep -m 1 "DHCP agent started"; do : ; done > /dev/null 2>&1
+				sleep 3
+				
 				if ! pgrep neutron-server >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/neutron/neutron.sqlite
