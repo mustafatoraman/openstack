@@ -4,9 +4,9 @@
 # Author: Mustafa Toraman <mtoraman@us.ibm.com>
 # Copyright: IBM Corporation - 2016
 # ----------------------------------------------------------------------------------------
-# Last updated 17 Mar 2016
+# Last updated 19 Mar 2016
 # ----------------------------------------------------------------------------------------
-version="v1.5.7"
+version="v1.6.0"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 export NCURSES_NO_UTF8_ACS=1
 # temp/trap ------------------------------------------------------------------------------
