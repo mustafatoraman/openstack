@@ -37,7 +37,7 @@ rootpath=/root
 # speed_menu -----------------------------------------------------------------------------
 
 speed_menu () {
-	
+
 	$DIALOG	--colors \
 			--clear --title " Automated Step Speed Selection " \
 			--default-item "5" \
@@ -68,14 +68,14 @@ This option may help you to have enough time to review each step results or comp
 pw_gen () {
 
 if [ -f /root/passwords ]; then
-	
+
 	dialog 	--colors \
 			--ok-label "Continue" \
 			--backtitle "OpenStackLab for Cloud Advisors - ${version}"\
 			--msgbox  "Passwords file found, we will use existing passwords in ${bold}/root/passwords${clear} ." 5 120
 
 else
-	
+
 	rootpath=/root
 	cd
 	echo "Generating random passwords for setup" 2>&1 |\
@@ -107,7 +107,7 @@ else
 	echo "METADATA_SECRET=$(openssl rand -hex 6)"   >> passwords
 	echo "SWIFT_HASH_SUF=$(openssl rand -hex 6)"    >> passwords
 	echo "SWIFT_HASH_PRE=$(openssl rand -hex 6)"    >> passwords
-	
+
 	echo "Passwords saved in /root/passwords for reference" 2>&1 | \
 		dialog 	--title " Generating random passwords " \
 				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -243,7 +243,7 @@ step_failed () {
 				--title " Step Failed! " \
 				--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 				--ok-label "Continue" \
-				--msgbox "Step failed or unable to verify changes.\n\nPlease check your internet connectivity, update script and restart the same step from menu." 6 120 
+				--msgbox "Step failed or unable to verify changes.\n\nPlease check your internet connectivity, update script and restart the same step from menu." 6 120
 		exit 0
 }
 
@@ -252,7 +252,7 @@ step_failed () {
 
 1.0 () {
 
-	1.1 
+	1.1
 
 }
 
@@ -339,7 +339,7 @@ object2      |  Host-only - 172.16.0.41  |  Management (NAT) - 10.0.0.41  |\n\n\
 # 1.3 ------------------------------------------------------------------------------------
 
 1.3 () {
-	
+
 	$DIALOG	--clear --title " 1.3 - Prerequisites - Node Selection " \
 			--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
         	--menu "Please select the node you want to start installation in this candidate server?" 13 120 6 \
@@ -352,9 +352,9 @@ object2      |  Host-only - 172.16.0.41  |  Management (NAT) - 10.0.0.41  |\n\n\
 
 	retval=$?
 	choice=`cat $tempfile`
-	
+
 	case $retval in
-		
+
 		0)
     		hostname $choice
     		1.4 ;;
@@ -368,7 +368,7 @@ object2      |  Host-only - 172.16.0.41  |  Management (NAT) - 10.0.0.41  |\n\n\
 # 1.4 ------------------------------------------------------------------------------------
 
 1.4 () {
-	
+
 	check_internet_access
 
 	$DIALOG --colors \
@@ -391,9 +391,9 @@ ${bold}/etc/hosts${clear}\n" 12 120
 			dialog 	--title " Downloading preconfigured /etc/network/interfaces " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-			
+
 			if ! grep -q "172.16" /etc/network/interfaces; then step_failed; fi
-			
+
 			wget -O /etc/hostname $repo/$(hostname)/hostname 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/hostname " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -406,7 +406,7 @@ ${bold}/etc/hosts${clear}\n" 12 120
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
 
-			if ! grep -q "controller" /etc/hosts; then step_failed; fi		
+			if ! grep -q "controller" /etc/hosts; then step_failed; fi
 
 			dialog 	--ok-label "Continue" \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -443,7 +443,7 @@ ${bold}/etc/hosts${clear}\n" 12 120
 1.5 () {
 
 	check_internet_access
-	
+
 	$DIALOG --colors \
 			--yes-label "Continue" \
 			--no-label "Exit" \
@@ -464,22 +464,22 @@ Steps to configure NTP service\n\n\
 			dialog 	--title " Installing Chrony packages " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-			
+
 			if ! apt-get -qq install chrony; then step_failed ; fi
-			
+
 			wget -O /etc/chrony/chrony.conf $repo/$(hostname)/chrony.conf 2>&1 | \
 			dialog 	--title " Downloading preconfigured /etc/chrony/chrony.conf " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--progressbox 40 120; sleep $speed
-					
+
 			if ! grep -q "server" /etc/chrony/chrony.conf; then step_failed; fi
-			
+
 			dialog  --clear\
 					--exit-label Continue \
 					--title " Review /etc/chrony/chrony.conf " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--textbox /etc/chrony/chrony.conf 40 120
-					
+
 			service chrony restart 2>&1 | \
 			dialog 	--title " Restarting the NTP service " \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -494,7 +494,7 @@ Steps to configure NTP service\n\n\
 			menu ;;
   		255)
     		echo "ESC pressed.";;
-	esac 
+	esac
 }
 
 # 1.6 ------------------------------------------------------------------------------------
@@ -502,7 +502,7 @@ Steps to configure NTP service\n\n\
 1.6 () {
 
 	check_internet_access
-	
+
 	$DIALOG --colors \
 			--title " 1.6 - Prerequisites - OpenStack Packages " --clear \
 			--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -525,7 +525,7 @@ Steps to install OpenStack Packages\n\n\
 					--progressbox 40 120; sleep $speed
 
 			if ! apt-get -qq install software-properties-common; then step_failed ; fi
-			
+
 			unset UCF_FORCE_CONFFOLD
 			export UCF_FORCE_CONFFNEW=YES
 			ucf --purge /boot/grub/menu.lst
@@ -546,13 +546,13 @@ Steps to install OpenStack Packages\n\n\
 			dialog 	--ok-label "Continue" \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--msgbox  "OpenStack Package installation completed " 5 120
- 
+
   			1.7 ;;
  		1)
 			menu ;;
  		255)
     		echo "ESC pressed.";;
-	esac 
+	esac
 }
 
 # 1.7 ------------------------------------------------------------------------------------
@@ -578,14 +578,14 @@ ${code}openstacklab${clear}\n\n" 17 120
 	case $? in
   		0)
 			sleep 1
-			
+
 			$DIALOG	--colors \
 					--ok-label "Continue" \
 					--yes-label "Reboot" \
 					--no-label "Exit" \
 					--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 					--yesno   "Please confirm to reboot ${info}$(hostname)${clear} node." 5 120
-			
+
 			case $? in
   				0)
 					reboot;;
@@ -599,14 +599,14 @@ ${code}openstacklab${clear}\n\n" 17 120
 			menu ;;
   		255)
     		echo "ESC pressed.";;
-	esac 
+	esac
 }
 
 # 2.1 ------------------------------------------------------------------------------------
 
-2.0 () { 
-	
-	2.1 
+2.0 () {
+
+	2.1
 
 }
 
@@ -656,7 +656,7 @@ ${bold}SWIFT_HASH_PRE${clear}       Suffix for object storage environment\n" 34 
 				menu;;
   			255)
     			echo "ESC pressed.";;
-			esac 
+			esac
 	else
 		wrong_server
 	fi
@@ -710,7 +710,7 @@ ${code}cat /root/passwords${clear}" 35 120
 	 		menu ;;
   		255)
     		echo "ESC pressed.";;
-		esac 
+		esac
 }
 
 # 2.2 ------------------------------------------------------------------------------------
@@ -718,7 +718,7 @@ ${code}cat /root/passwords${clear}" 35 120
 2.2 () {
 
 	check_internet_access
-	
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		$DIALOG --colors \
@@ -775,7 +775,7 @@ Steps to install SQL Database\n\n\
 				dialog 	--title " Securing the database service " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-						
+
 				if ! grep -q "bash" /root/dbsec.sh; then step_failed; fi
 
 				dialog 	--ok-label "Continue" \
@@ -787,7 +787,7 @@ Steps to install SQL Database\n\n\
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -847,7 +847,7 @@ Steps to install RabbitMQ Message Queueu\n\n\
 				menu ;;
  			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -886,7 +886,7 @@ Steps to install Keystone Identity Service\n\n\
 		case $? in
   			0)
 				sleep 1
-				
+
 				mysql -uroot -p$ROOT_DB_PASS -e "CREATE DATABASE keystone"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'localhost' IDENTIFIED BY '$KEYSTONE_DBPASS'"
 				mysql -uroot -p$ROOT_DB_PASS -e "GRANT ALL PRIVILEGES ON keystone.* TO 'keystone'@'%' IDENTIFIED BY '$KEYSTONE_DBPASS'"
@@ -958,7 +958,7 @@ Steps to install Keystone Identity Service\n\n\
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1039,7 +1039,7 @@ Steps to create Service entity and API endpoints\n\n\
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1142,7 +1142,7 @@ Steps to create projects, users, and roles\n\n\
 						--msgbox  "Demo projects, users, and roles are created." 5 120
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				2.7 ;;
   			1)
 				menu ;;
@@ -1206,7 +1206,7 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 				dialog 	--title " Downloading preconfigured /root/demo-openrc.sh " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-						
+
 				if ! grep -q "controller" /root/demo-openrc.sh; then step_failed; fi
 
 				dialog  --clear\
@@ -1240,16 +1240,16 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
-						--msgbox  " OpenStack client environment scripts are created." 5 120 
+						--msgbox  " OpenStack client environment scripts are created." 5 120
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 			    2.8 ;;
   			1)
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1260,11 +1260,10 @@ ${code}/root/demo-openrc.sh${clear}\n" 21 120
 2.8 () {
 
 	check_internet_access
-	
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
-		
+
 		$DIALOG --colors \
 				--clear \
 				--title " 2.8 - Glance - Image Service " \
@@ -1417,13 +1416,13 @@ Steps to install Glance - Image Service\n\n\
 						--msgbox  " Glance - Image Service setup completed." 5 120
 
 				restart_apache2 > /dev/null 2>&1
-				
+
  				2.9 ;;
   			1)
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1463,7 +1462,7 @@ Steps to install Nova - Compute Service\n\n\
 				sleep 1
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -1556,21 +1555,21 @@ Steps to install Nova - Compute Service\n\n\
 				if ! pgrep nova-cert >/dev/null 2>&1; then step_failed; fi
 				if ! pgrep nova-scheduler >/dev/null 2>&1; then step_failed; fi
 				if ! pgrep nova-novncproxy >/dev/null 2>&1; then step_failed; fi
-				
+
 				rm -f /var/lib/nova/nova.sqlite
 
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  " Nova - Compute Service setup completed." 5 120
-  				
+
 				restart_apache2 > /dev/null 2>&1
-				
+
   				2.10 ;;
   			1)
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1613,7 +1612,7 @@ Steps to install Neutron - Networking Service\n\n\
 				sleep 1
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -1652,17 +1651,17 @@ Steps to install Neutron - Networking Service\n\n\
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne network public http://controller:9696 2>&1 | \
-				dialog 	--title " Create the Nova service API endpoints " \
+				dialog 	--title " Create the Neutron service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne network internal http://controller:9696 2>&1 | \
-				dialog 	--title " Create the Nova service API endpoints " \
+				dialog 	--title " Create the Neutron service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
 				openstack endpoint create --region RegionOne network admin http://controller:9696 2>&1 | \
-				dialog 	--title " Create the Nova service API endpoints " \
+				dialog 	--title " Create the Neutron service API endpoints " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
@@ -1754,18 +1753,18 @@ Steps to install Neutron - Networking Service\n\n\
 				service neutron-dhcp-agent restart && \
 				service neutron-metadata-agent restart && \
 				service neutron-l3-agent restart && \
-				echo "Please wait until neutron services to sync up..." ) 2>&1 | \
+				echo "Please wait for neutron services to sync up..." ) 2>&1 | \
 				dialog 	--title " Restarting Neutron services" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-				
+
 				until cat /var/log/neutron/neutron-metadata-agent.log | grep -m 1 "run outlasted interval"; do : ; done > /dev/null 2>&1
 				until cat /var/log/neutron/neutron-plugin-linuxbridge-agent.log | grep -m 1 "run outlasted interval"; do : ; done > /dev/null 2>&1
 				service neutron-plugin-linuxbridge-agent restart > /dev/null 2>&1
 				service neutron-metadata-agent restart > /dev/null 2>&1
 				until cat /var/log/neutron/dhcp-agent.log | grep -m 1 "DHCP agent started"; do : ; done > /dev/null 2>&1
 				sleep 3
-				
+
 				if ! pgrep neutron-server >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/neutron/neutron.sqlite
@@ -1775,13 +1774,13 @@ Steps to install Neutron - Networking Service\n\n\
 						--msgbox  " Neutron - Networking Service setup completed." 5 120
 
 				restart_apache2 > /dev/null 2>&1
-								
+
     			2.11 ;;
 			1)
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1815,12 +1814,12 @@ Steps to create virtual networks\n\n\
 4) ${bold}Add existing public key to avoid of conventional password authentication${clear}\n" 16 120
 
 		case $? in
-  			
+
   			0)
 				sleep 1
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -1835,9 +1834,7 @@ Steps to create virtual networks\n\n\
 				dialog 	--title " Creating the public network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-				
-				sleep 3
-				
+
 				neutron net-show public 2>&1 | \
 				dialog 	--title " Verifying the public network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1849,8 +1846,6 @@ Steps to create virtual networks\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
-				sleep 3
-				
 				neutron subnet-show public 2>&1 | \
 				dialog 	--title " Verifying the subnet on the public network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1869,8 +1864,6 @@ Steps to create virtual networks\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
-				sleep 3
-			
 				neutron net-show private 2>&1 | \
 				dialog 	--title " Verifying the private project network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1880,9 +1873,7 @@ Steps to create virtual networks\n\n\
 				dialog 	--title " Create a subnet on the private project network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-				
-				sleep 3
-										
+
 				neutron subnet-show private 2>&1 | \
 				dialog 	--title " Verifying the subnet on the private network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1900,9 +1891,7 @@ Steps to create virtual networks\n\n\
 				dialog 	--title " Adding the router: external option to the public provider network " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-				
-				sleep 3						
-				
+
 				neutron net-external-list  2>&1 | \
 				dialog 	--title " Verifying the list of external networks " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1921,8 +1910,6 @@ Steps to create virtual networks\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
-				sleep 3
-						
 				neutron router-show router  2>&1 | \
 				dialog 	--title " Verifying the router " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1933,26 +1920,22 @@ Steps to create virtual networks\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
 
-				sleep 3
-
 				neutron router-gateway-set router public 2>&1 | \
 				dialog 	--title " Setting a gateway on the public network on the router " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-
-				sleep 3
 
 				( nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0 && \
 				nova secgroup-add-rule default tcp 1 65535 0.0.0.0/0 ) 2>&1 | \
 				dialog 	--title " Adding security group rules for allowing all ports and ICMP requests " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-		
+
 				nova keypair-add --pub-key .ssh/id_rsa.pub mykey 2>&1 | \
 				dialog 	--title " Adding existing public key" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-		
+
 				nova keypair-list 2>&1 | \
 				dialog 	--title " Verifying addition of the key pair" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -1963,13 +1946,13 @@ Steps to create virtual networks\n\n\
 						--msgbox  " Public, private project network, security group rules and public key are created. " 5 120
 
 				restart_apache2 > /dev/null 2>&1
-				
+
     			2.12 ;;
   			1)
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -1980,7 +1963,7 @@ Steps to create virtual networks\n\n\
 2.12 () {
 
 	check_internet_access
-	
+
 	if [ "$(hostname)" = "controller" ]; then
 
 		load_passwords
@@ -2001,13 +1984,13 @@ Steps to install Horizon - OpenStack Dashboard\n\n\
 1) ${bold}Install and configure Horizon components${clear}\n\
 2) ${bold}Download preconfigured /etc/openstack-dashboard/local_settings.py${clear}\n\
 3) ${bold}Reloading the web server configuration to load Horizon${clear}\n" 17 120
-		
+
 		case $? in
   			0)
 				sleep 1
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -2049,15 +2032,15 @@ Steps to install Horizon - OpenStack Dashboard\n\n\
 		Password:   ${bold}${ADMIN_PASS}${clear}\n\n\
 		User:       ${bold}demo${clear}\n\
 		Password:   ${bold}${DEMO_PASS}${clear}" 15 120
-		
+
 				restart_apache2 > /dev/null 2>&1
-				
+
     			2.13 ;;
   			1)
 				menu ;;
   			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -2100,7 +2083,7 @@ Steps to install Cinder - Block Storage Service\n\n\
 				sleep 1
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -2208,16 +2191,16 @@ Steps to install Cinder - Block Storage Service\n\n\
 						--progressbox 40 120; sleep $speed
 
 				if ! pgrep nova-api >/dev/null 2>&1; then step_failed; fi
-				if ! pgrep cinder-api >/dev/null 2>&1; then step_failed; fi				
+				if ! pgrep cinder-api >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/cinder/cinder.sqlite
 
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  " Cinder - Block Storage setup completed." 5 120
-				
+
 				restart_apache2 > /dev/null 2>&1
-				
+
    				2.14 ;;
 			1)
 				menu ;;
@@ -2264,7 +2247,7 @@ Steps to install Swift - Object Storage Service\n\n\
 				sleep 1
 
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -2347,7 +2330,7 @@ Steps to install Swift - Object Storage Service\n\n\
 
 				pw_update /etc/swift/proxy-server.conf
 				pw_update /etc/swift/swift.conf
-				
+
 				cd /etc/swift/
 
 				( swift-ring-builder account.builder create 10 3 1 && \
@@ -2401,18 +2384,18 @@ Steps to install Swift - Object Storage Service\n\n\
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  " Swift - Object Storage setup completed." 5 120
 				cd
-   	
+
 				restart_apache2 > /dev/null 2>&1
-				
+
    				2.15 ;;
 			1)
 				menu ;;
 			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
-	fi 
+	fi
 }
 
 # 2.15 -----------------------------------------------------------------------------------
@@ -2451,10 +2434,10 @@ Steps to install Heat - Orchestration Service\n\n\
 		case $? in
   			0)
 				sleep 1
-				
+
 				service apache2 restart  > /dev/null 2>&1
 				restart_apache2 > /dev/null 2>&1
-				
+
 				rootpath=/root
 				. $rootpath/admin-openrc.sh
 				openstack token issue > /dev/null 2>&1
@@ -2599,9 +2582,9 @@ Steps to install Heat - Orchestration Service\n\n\
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  " Heat - Orchestration Service setup completed." 5 120
-    
+
 				restart_apache2 > /dev/null 2>&1
-				
+
     			reboot_now ;;
   			1)
 				menu ;;
@@ -2618,7 +2601,7 @@ Steps to install Heat - Orchestration Service\n\n\
 3.0 () {
 
 	check_internet_access
-	
+
 	if [ "$(hostname)" = "compute1" ] || [ "$(hostname)" = "compute2" ]; then
 
 		$DIALOG --colors \
@@ -2639,7 +2622,7 @@ Steps to install Compute Node\n\n\
 3) ${bold}Download and configure Neutron Linuxbridge Agent${clear}\n" 23 120
 
 		case $? in
-  			0)  
+  			0)
 				sleep 1
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
@@ -2685,8 +2668,8 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 3) ${bold}Restart nova-compute service.${clear}\n" 14 120
 
 		case $? in
-  			
-  			0)  
+
+  			0)
 				sleep 1
 
 				apt-get -y install nova-compute sysfsutils 2>&1 | \
@@ -2728,7 +2711,7 @@ Steps to install Nova Compute Service in Compute Nodes\n\n\
 				dialog 	--title " Restarting nova compute service" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--progressbox 40 120; sleep $speed
-						
+
 				if ! pgrep nova-compute >/dev/null 2>&1; then step_failed; fi
 
 				rm -f /var/lib/nova/nova.sqlite
@@ -2769,10 +2752,10 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 1) ${bold}Install the neutron-plugin-linuxbridge-agent package${clear}\n\
 2) ${bold}Download preconfigured /etc/neutron/neutron.conf and /etc/neutron/plugins/ml2/linuxbridge_agent.ini files${clear}\n\
 3) ${bold}Restart nova-compute and neutron-plugin-linuxbridge-agent services.${clear}\n" 15 120
-		
+
 		case $? in
 
-			0)  
+			0)
 				sleep 1
 
 				apt-get -y install neutron-plugin-linuxbridge-agent 2>&1 | \
@@ -2807,7 +2790,7 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 						--title " Review /etc/neutron/plugins/ml2/linuxbridge_agent.ini " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--textbox /etc/neutron/plugins/ml2/linuxbridge_agent.ini 40 120
- 
+
 				pw_update /etc/neutron/neutron.conf
 				pw_update /etc/neutron/plugins/ml2/linuxbridge_agent.ini
 
@@ -2817,7 +2800,7 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 						--progressbox 40 120; sleep $speed
 
 				if ! pgrep nova-compute >/dev/null 2>&1; then step_failed; fi
-		
+
 				service neutron-plugin-linuxbridge-agent restart 2>&1 | \
 				dialog 	--title " Restarting Neutron Linuxbridge Agent service" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -2835,7 +2818,7 @@ Steps to install Neutron Networking Service in Compute Nodes\n\n\
 				menu ;;
 			255)
     			echo "ESC pressed.";;
-		esac 
+		esac
 	else
 		wrong_server
 	fi
@@ -2871,11 +2854,11 @@ Steps to install Block Storage Node\n\n\
 5) ${bold}Install and configure cinder-volume component${clear}\n\
 6) ${bold}Download preconfigured /etc/cinder/cinder.conf${clear}\n\
 7) ${bold}Restart the Block Storage volume service${clear}\n" 25 120
-		
+
 		case $? in
-  
-  			0)  
-				
+
+  			0)
+
 				sleep 1
 
 				scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -r root@controller:/root/passwords /root/passwords 2>&1 | \
@@ -2888,7 +2871,7 @@ Steps to install Block Storage Node\n\n\
 				dialog 	--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  "Passwords file copied to /root/passwords" 5 120
-				
+
 				apt-get -y install lvm2 2>&1 | \
 				dialog 	--title " Installing lvm2 supporting utility package " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
@@ -2907,7 +2890,7 @@ Steps to install Block Storage Node\n\n\
 						--progressbox 40 120; sleep $speed
 
 				if ! grep -q "sdb" /etc/lvm/lvm.conf; then step_failed; fi
-		
+
 				dialog  --clear\
 						--exit-label Continue \
 						--title " Review /etc/lvm/lvm.conf " \
@@ -2950,12 +2933,12 @@ Steps to install Block Storage Node\n\n\
 						--ok-label "Continue" \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--msgbox  " Cinder - Block Storage Service setup completed on ${info}$(hostname)${clear} node." 5 120
-						
+
 				reboot_now ;;
   			1)
 				menu;;
   			255)
-    			
+
     			echo "ESC pressed.";;
 		esac
 	else
@@ -2992,7 +2975,7 @@ Steps to install Object Storage Node\n\n\
 
 		case $? in
 
-  			0)  
+  			0)
 
 				sleep 1
 
@@ -3028,7 +3011,7 @@ Steps to install Object Storage Node\n\n\
 						--infobox " Editing fstab to automount partitions at startup " 4 120 ; sleep $speed
 
 				echo "/dev/sdb /srv/node/sdb xfs noatime,nodiratime,nobarrier,logbufs=8 0 2" >> /etc/fstab
-				echo "/dev/sdc /srv/node/sdc xfs noatime,nodiratime,nobarrier,logbufs=8 0 2" >> /etc/fstab	
+				echo "/dev/sdc /srv/node/sdc xfs noatime,nodiratime,nobarrier,logbufs=8 0 2" >> /etc/fstab
 
 				( mount /srv/node/sdb && mount /srv/node/sdc ) 2>&1 | \
 				dialog 	--title " Mounting the devices " \
@@ -3098,7 +3081,7 @@ Steps to install Object Storage Node\n\n\
 						--exit-label Continue \
 						--title " Review /etc/swift/object-server.conf " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
-						--textbox /etc/default/rsync 40 120						
+						--textbox /etc/default/rsync 40 120
 
 				dialog  --clear\
 						--exit-label Continue \
@@ -3110,8 +3093,8 @@ Steps to install Object Storage Node\n\n\
 						--exit-label Continue \
 						--title " Review /etc/swift/account-server.conf " \
 						--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
-						--textbox /etc/default/rsync 40 120				
-						
+						--textbox /etc/default/rsync 40 120
+
 				dialog 	--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--infobox "Setting folder permissions" 4 120 ; sleep $speed
 
@@ -3148,7 +3131,7 @@ Steps to install Object Storage Node\n\n\
 						--textbox /etc/swift/swift.conf 40 120
 
 				pw_update /etc/swift/swift.conf
-				
+
 				dialog 	--backtitle "OpenStackLab for Cloud Advisors - ${version}" \
 						--infobox "Setting folder permissions" 4 120 ; sleep $speed
 
@@ -3173,7 +3156,7 @@ Steps to install Object Storage Node\n\n\
 		esac
 	else
 	wrong_server
-	fi 
+	fi
 }
 
 # menu -----------------------------------------------------------------------------------
