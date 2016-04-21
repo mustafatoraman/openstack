@@ -4,11 +4,12 @@
 # Author: Mustafa Toraman <mtoraman@us.ibm.com>
 # Copyright: IBM Corporation - 2016
 # ----------------------------------------------------------------------------------------
-# Last updated 19 Mar 2016
+# Last updated 21 Apr 2016
 # ----------------------------------------------------------------------------------------
-version="v1.6.0"
+version="v1.6.1"
 repo=https://raw.githubusercontent.com/mustafatoraman/openstack/master/master
 export NCURSES_NO_UTF8_ACS=1
+export LC_CTYPE="en_US.UTF-8"
 # temp/trap ------------------------------------------------------------------------------
 
 DIALOG=${DIALOG=dialog}
