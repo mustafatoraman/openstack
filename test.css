@@ -1370,7 +1370,7 @@ option:empty {
   vertical-align: bottom;
 }
 .admin__control-table th._required span:after {
-  color: #bf1e2e;
+  color: #eb5202;
   content: '*';
 }
 .admin__control-table .control-table-actions-th {
@@ -1680,7 +1680,7 @@ option:empty {
 }
 .required > .admin__field-label > span:after,
 ._required > .admin__field-label > span:after {
-  color: #bf1e2e;
+  color: #eb5202;
   content: '*';
   display: inline-block;
   font-size: 1.6rem;
@@ -2852,8 +2852,8 @@ li._edit .selectmenu-item-edit {
 .actions-split._active .action-toggle.action-primary,
 .actions-split.active .action-toggle.primary,
 .actions-split._active .action-toggle.primary {
-  background-color: #ab1a29;
-  border-color: #ab1a29;
+  background-color: #ba4000;
+  border-color: #ba4000;
 }
 .actions-split.active .dropdown-menu,
 .actions-split._active .dropdown-menu {
@@ -3905,8 +3905,8 @@ button.primary,
 .page-actions .page-actions-buttons > .block-footer .action-add.action-primary,
 .page-actions > .block-footer .action-add.primary,
 .page-actions .page-actions-buttons > .block-footer .action-add.primary {
-  background-color: #bf1e2e;
-  border-color: #bf1e2e;
+  background-color: #eb5202;
+  border-color: #eb5202;
   color: #ffffff;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -3943,7 +3943,7 @@ button.primary:focus,
 .page-actions .page-actions-buttons > .block-footer .action-add.primary:hover,
 .page-actions .page-actions-buttons > .block-footer .action-add.primary:active,
 .page-actions .page-actions-buttons > .block-footer .action-add.primary:focus {
-  background-color: #ab1a29;
+  background-color: #ba4000;
   border-color: #b84002;
   box-shadow: 0 0 0 1px #007bdb;
   color: #ffffff;
@@ -4408,7 +4408,7 @@ button.tertiary:focus,
 }
 .abs-action-wrap-triangle-right .action-primary:after,
 .action-wrap-next .action-primary:after {
-  border-color: transparent transparent transparent #bf1e2e;
+  border-color: transparent transparent transparent #eb5202;
 }
 .abs-action-wrap-triangle-right .action-primary:hover:after,
 .abs-action-wrap-triangle-right .action-primary:active:after,
@@ -4416,7 +4416,7 @@ button.tertiary:focus,
 .action-wrap-next .action-primary:hover:after,
 .action-wrap-next .action-primary:active:after,
 .action-wrap-next .action-primary:focus:after {
-  border-left-color: #ab1a29;
+  border-left-color: #ba4000;
 }
 .abs-action-wrap-triangle-left,
 .action-wrap-prev {
@@ -4461,7 +4461,7 @@ button.tertiary:focus,
 }
 .abs-action-wrap-triangle-left .action-primary:after,
 .action-wrap-prev .action-primary:after {
-  border-color: transparent #bf1e2e transparent transparent;
+  border-color: transparent #eb5202 transparent transparent;
 }
 .abs-action-wrap-triangle-left .action-primary:hover:after,
 .abs-action-wrap-triangle-left .action-primary:active:after,
@@ -4469,7 +4469,7 @@ button.tertiary:focus,
 .action-wrap-prev .action-primary:hover:after,
 .action-wrap-prev .action-primary:active:after,
 .action-wrap-prev .action-primary:focus:after {
-  border-right-color: #ab1a29;
+  border-right-color: #ba4000;
 }
 .action-default,
 button,
@@ -4493,15 +4493,15 @@ button:focus,
   text-decoration: none;
 }
 .action-primary {
-  background-color: #bf1e2e;
-  border-color: #bf1e2e;
+  background-color: #eb5202;
+  border-color: #eb5202;
   color: #ffffff;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25);
 }
 .action-primary:hover,
 .action-primary:active,
 .action-primary:focus {
-  background-color: #ab1a29;
+  background-color: #ba4000;
   border-color: #b84002;
   box-shadow: 0 0 0 1px #007bdb;
   color: #ffffff;
@@ -5032,7 +5032,7 @@ table > caption {
 }
 .tabs-horiz .ui-state-active .ui-tabs-anchor {
   border-bottom: 0.1rem solid #ffffff;
-  border-top: 0.4rem solid #bf1e2e;
+  border-top: 0.4rem solid #eb5202;
   padding-top: 1.1rem;
 }
 .tabs-horiz .ui-tabs-anchor {
@@ -5264,8 +5264,8 @@ input.no-display,
 }
 .popup-loading {
   background: rgba(255, 255, 255, 0.8);
-  border-color: #bf1e2e;
-  color: #bf1e2e;
+  border-color: #ef672f;
+  color: #ef672f;
   font-size: 14px;
   font-weight: bold;
   left: 50%;
@@ -5708,7 +5708,7 @@ fieldset[disabled] ._has-datepicker + .ui-datepicker-trigger {
   content: '\e61a';
 }
 .message-warning:before {
-  color: #bf1e2e;
+  color: #eb5202;
   content: '\e623';
 }
 .message-error {
@@ -8459,7 +8459,7 @@ body._has-modal {
   content: '...';
 }
 .notifications-entry-title {
-  color: #bf1e2e;
+  color: #ef672f;
   display: block;
   font-size: 1.1rem;
   font-weight: 700;
@@ -8525,11 +8525,11 @@ body._has-modal {
   padding: 2.6rem 2rem 6rem 3rem;
 }
 .page-footer a {
-  color: #bf1e2e;
+  color: #ef672f;
   text-decoration: underline;
 }
 .page-footer a:hover {
-  color: #bf1e2e;
+  color: #ef672f;
 }
 .page-footer .admin__control-select,
 .page-footer .ui-datepicker .ui-datepicker-title select {
@@ -8558,11 +8558,8 @@ body._has-modal {
 }
 .copyright .link-copyright:before {
   transition: color 0.1s linear;
-  color: #bf1e2e;
-  content: '';
-  background: url('../images/magento-icon.svg');
-  width: 25px;
-  height: 25px;
+  color: #eb5202;
+  content: '\e606';
   display: block;
   font-size: 2.5rem;
   position: relative;
@@ -9100,7 +9097,7 @@ body._has-modal {
 }
 .admin__page-nav-item._active,
 .admin__page-nav-item.ui-state-active {
-  border-color: #bf1e2e;
+  border-color: #eb5202;
 }
 .admin__page-nav-item._active .admin__page-nav-link,
 .admin__page-nav-item.ui-state-active .admin__page-nav-link {
@@ -9218,7 +9215,7 @@ body._has-modal {
   display: inline-block;
 }
 ._error .admin__page-nav-item-message-icon:after {
-  color: #bf1e2e;
+  color: #eb5202;
   content: '\e623';
 }
 ._error > .admin__page-nav-item-messages ._error {
@@ -9851,7 +9848,7 @@ body._has-modal {
   width: 25%;
 }
 .dashboard-totals-item:first-child .price {
-  color: #bf1e2e;
+  color: #eb5202;
 }
 .dashboard-totals-label {
   display: block;
@@ -9906,7 +9903,7 @@ body._has-modal {
   font-weight: 700;
 }
 .dashboard-item-primary:first-child .dashboard-sales-value {
-  color: #bf1e2e;
+  color: #eb5202;
 }
 .dashboard-sales-value {
   font-size: 2.4rem;
@@ -9959,7 +9956,7 @@ body._has-modal {
   color: transparent;
 }
 .page-layout-admin-login .admin__legend {
-  color: #bf1e2e;
+  color: #eb5202;
   font-size: 2.6rem;
   font-weight: 300;
   line-height: 1.2;
@@ -13052,7 +13049,7 @@ input[type='checkbox'].banner-content-checkbox + .addafter {
   z-index: 281;
 }
 .data-grid-filters-action-wrap .action-default._active:after {
-  background-color: #bf1e2e;
+  background-color: #eb5202;
   bottom: 100%;
   content: '';
   height: 3px;
